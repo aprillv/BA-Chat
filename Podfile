@@ -13,7 +13,7 @@ pod 'JSQMessagesViewController'
 pod 'SDWebImage'
 pod 'Firebase/Storage'
 pod 'MBProgressHUD', '~> 1.0.0'
-
+pod 'FBAnnotationClusteringSwift'
 end
 
 target 'SwiftExampleTests' do

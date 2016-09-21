@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let para=["username": username.text ?? "April Test"];
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.label.text = "Login..."
-        Alamofire.request(.GET, "https://ssl.buildersaccess.com/getfirebasetoken.json",parameters:para)
+        Alamofire.request(.GET, "http://sdk.itshapapp.com/getfirebasetoken.json",parameters:para)
             .responseJSON { response in
 //                hud.hideAnimated(true)
 //                //print(response.request)  // original URL request
@@ -104,7 +104,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 //                                let email = user.email
 //                                let photoUrl = user.photoURL
 //                                let uid = user.uid;  // The user's ID, unique to the Firebase project.
-                                self.performSegueWithIdentifier("Chat", sender: user)
+                                self.performSegueWithIdentifier("showMainMap", sender: user)
 //                                print(uid)
                                 //                                print(uid)
                                 // Do NOT use this value to authenticate with

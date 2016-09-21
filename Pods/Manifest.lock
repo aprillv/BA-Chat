@@ -2,6 +2,7 @@ PODS:
   - Alamofire (3.4.2)
   - AlamofireImage (2.4.1):
     - Alamofire (~> 3.3)
+  - FBAnnotationClusteringSwift (1.0.1)
   - Firebase/Analytics (3.5.2):
     - FirebaseAnalytics (~> 3.3)
   - Firebase/Auth (3.5.2):
@@ -51,6 +52,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage (~> 2.0)
+  - FBAnnotationClusteringSwift
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -62,6 +64,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
+  FBAnnotationClusteringSwift: a1f4c07f5472b13acd69de04c61e68e2d7daaad3
   Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
   FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
@@ -78,6 +81,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: d677e6c73e1a8a51aff76c2babc00be185771530
+PODFILE CHECKSUM: ced6d94f10fe9e32f1d9bf96905b975b928a9ada
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.0.0.beta.5

@@ -15,6 +15,11 @@
 		115525851D92286200357AA9 /* FBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525841D92286200357AA9 /* FBViewController.swift */; };
 		115525A51D9234C300357AA9 /* Feedplaces1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525A41D9234C300357AA9 /* Feedplaces1.swift */; };
 		115525A71D924C2D00357AA9 /* ChatObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525A61D924C2D00357AA9 /* ChatObject.swift */; };
+		115525AD1D92636900357AA9 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525AB1D92636900357AA9 /* CustomCalloutView.swift */; };
+		115525AE1D92636900357AA9 /* CustomCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115525AC1D92636900357AA9 /* CustomCalloutView.xib */; };
+		115525B01D9273C400357AA9 /* Feedplace3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525AF1D9273C400357AA9 /* Feedplace3.swift */; };
+		115525B31D92831500357AA9 /* BAChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 115525B11D92831500357AA9 /* BAChat.xcdatamodeld */; };
+		115525B51D92844900357AA9 /* cl_coreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525B41D92844900357AA9 /* cl_coreData.swift */; };
 		115CFF9D1D8A2F6D00119E2E /* Map2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */; };
 		118DB9AB1D89303900854F7B /* ZHCMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 118DB9441D89303900854F7B /* ZHCMessagesAssets.bundle */; };
 		118DB9AC1D89303900854F7B /* NSArray+ZHCMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 118DB9471D89303900854F7B /* NSArray+ZHCMessages.m */; };
@@ -64,8 +69,9 @@
 		118DB9D81D89303900854F7B /* ZHCMessagesToolbarContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118DB9AA1D89303900854F7B /* ZHCMessagesToolbarContentView.xib */; };
 		118E51DC1D8687BA004DDC14 /* MicrophoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E51DB1D8687BA004DDC14 /* MicrophoneViewController.swift */; };
 		1196A0771D8931E1001367BA /* Chat2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0761D8931E1001367BA /* Chat2ViewController.swift */; };
-		11D544651D8165F200D8428C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11D544641D8165F200D8428C /* GoogleService-Info.plist */; };
 		11D544681D81670300D8428C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D544661D81670300D8428C /* LoginViewController.swift */; };
+		11E3C35E1D937D1000D368C7 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */; };
+		11E3C3601D93884F00D368C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11E3C35F1D93884F00D368C7 /* GoogleService-Info.plist */; };
 		11E9D7CA1D8825FB00C2594C /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9D7C91D8825FB00C2594C /* CustomAnnotation.swift */; };
 		11FA802E1D898AE000AA87E6 /* ZHCPhoto2MediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FA802D1D898AE000AA87E6 /* ZHCPhoto2MediaItem.m */; };
 		2D4E760C6D52AC095DEF0A67 /* Pods_SwiftExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0DC4B7792ACC2835F9E2C4 /* Pods_SwiftExample.framework */; };
@@ -98,6 +104,11 @@
 		115525841D92286200357AA9 /* FBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBViewController.swift; sourceTree = "<group>"; };
 		115525A41D9234C300357AA9 /* Feedplaces1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feedplaces1.swift; sourceTree = "<group>"; };
 		115525A61D924C2D00357AA9 /* ChatObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatObject.swift; sourceTree = "<group>"; };
+		115525AB1D92636900357AA9 /* CustomCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
+		115525AC1D92636900357AA9 /* CustomCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCalloutView.xib; sourceTree = "<group>"; };
+		115525AF1D9273C400357AA9 /* Feedplace3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feedplace3.swift; sourceTree = "<group>"; };
+		115525B21D92831500357AA9 /* BAChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BAChat.xcdatamodel; sourceTree = "<group>"; };
+		115525B41D92844900357AA9 /* cl_coreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cl_coreData.swift; sourceTree = "<group>"; };
 		115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map2ViewController.swift; sourceTree = "<group>"; };
 		118DB9441D89303900854F7B /* ZHCMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZHCMessagesAssets.bundle; sourceTree = "<group>"; };
 		118DB9461D89303900854F7B /* NSArray+ZHCMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ZHCMessages.h"; sourceTree = "<group>"; };
@@ -197,8 +208,10 @@
 		118E51DB1D8687BA004DDC14 /* MicrophoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneViewController.swift; sourceTree = "<group>"; };
 		1196A0761D8931E1001367BA /* Chat2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat2ViewController.swift; sourceTree = "<group>"; };
 		1196A0B71D89356C001367BA /* BAChat-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BAChat-Bridging-Header.h"; sourceTree = "<group>"; };
-		11D544641D8165F200D8428C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11D544661D81670300D8428C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		11E3C35C1D937D1000D368C7 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		11E3C35F1D93884F00D368C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11E9D7C91D8825FB00C2594C /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		11ED8D381D862F080080F6E7 /* SwiftExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftExample.entitlements; sourceTree = "<group>"; };
 		11FA802C1D898AE000AA87E6 /* ZHCPhoto2MediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHCPhoto2MediaItem.h; sourceTree = "<group>"; };
@@ -241,7 +254,7 @@
 		110274451D823A16008BAA73 /* Supprorting Files */ = {
 			isa = PBXGroup;
 			children = (
-				11D544641D8165F200D8428C /* GoogleService-Info.plist */,
+				11E3C35F1D93884F00D368C7 /* GoogleService-Info.plist */,
 				F82D09C21CDFBB4900DD74CF /* AppDelegate.swift */,
 				F80276D21CE38FEB00063D88 /* Conversation.swift */,
 				111EEAD91D8FAB0000398883 /* Images.xcassets */,
@@ -253,8 +266,12 @@
 		115525A31D9234A800357AA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				115525B41D92844900357AA9 /* cl_coreData.swift */,
 				115525A61D924C2D00357AA9 /* ChatObject.swift */,
 				115525A41D9234C300357AA9 /* Feedplaces1.swift */,
+				115525AF1D9273C400357AA9 /* Feedplace3.swift */,
+				11E3C35C1D937D1000D368C7 /* MKMapView+ZoomLevel.h */,
+				11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,6 +502,8 @@
 		F82D09C11CDFBB4900DD74CF /* BAChat */ = {
 			isa = PBXGroup;
 			children = (
+				115525AB1D92636900357AA9 /* CustomCalloutView.swift */,
+				115525AC1D92636900357AA9 /* CustomCalloutView.xib */,
 				115525A31D9234A800357AA9 /* Models */,
 				115525841D92286200357AA9 /* FBViewController.swift */,
 				11ED8D381D862F080080F6E7 /* SwiftExample.entitlements */,
@@ -497,6 +516,7 @@
 				11E9D7C91D8825FB00C2594C /* CustomAnnotation.swift */,
 				1196A0761D8931E1001367BA /* Chat2ViewController.swift */,
 				115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */,
+				115525B11D92831500357AA9 /* BAChat.xcdatamodeld */,
 			);
 			name = BAChat;
 			path = SwiftExample;
@@ -618,9 +638,10 @@
 				F82D09CD1CDFBB4900DD74CF /* LaunchScreen.storyboard in Resources */,
 				118DB9D41D89303900854F7B /* ZHCMessagesTableViewCellIncoming.xib in Resources */,
 				118DB9AB1D89303900854F7B /* ZHCMessagesAssets.bundle in Resources */,
-				11D544651D8165F200D8428C /* GoogleService-Info.plist in Resources */,
 				118DB9B41D89303900854F7B /* ZHCMessagesViewController.xib in Resources */,
 				118DB9D61D89303900854F7B /* ZHCMessagesTableViewCellOutcoming.xib in Resources */,
+				115525AE1D92636900357AA9 /* CustomCalloutView.xib in Resources */,
+				11E3C3601D93884F00D368C7 /* GoogleService-Info.plist in Resources */,
 				F82D09C81CDFBB4900DD74CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,14 +874,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D544681D81670300D8428C /* LoginViewController.swift in Sources */,
+				115525B31D92831500357AA9 /* BAChat.xcdatamodeld in Sources */,
 				F80276D31CE38FEB00063D88 /* Conversation.swift in Sources */,
 				115525851D92286200357AA9 /* FBViewController.swift in Sources */,
 				118DB9CD1D89303900854F7B /* ZHCMessagesLabel.m in Sources */,
+				115525B51D92844900357AA9 /* cl_coreData.swift in Sources */,
 				118DB9AE1D89303900854F7B /* NSString+Emoji.m in Sources */,
 				118E51DC1D8687BA004DDC14 /* MicrophoneViewController.swift in Sources */,
 				118DB9C71D89303900854F7B /* ZHCMessagesVoiceRecorder.m in Sources */,
 				118DB9CB1D89303900854F7B /* ZHCMessagesEmojiView.m in Sources */,
 				118DB9CA1D89303900854F7B /* ZHCMessagesComposerTextView.m in Sources */,
+				115525AD1D92636900357AA9 /* CustomCalloutView.swift in Sources */,
 				118DB9AD1D89303900854F7B /* NSBundle+ZHCMessages.m in Sources */,
 				118DB9C61D89303900854F7B /* ZHCMessagesAudioPlayer.m in Sources */,
 				118DB9CC1D89303900854F7B /* ZHCMessagesInputToolbar.m in Sources */,
@@ -875,7 +899,9 @@
 				118DB9CE1D89303900854F7B /* ZHCMessagesMediaPlaceholderView.m in Sources */,
 				118DB9BB1D89303900854F7B /* ZHCAudioMediaViewAttributes.m in Sources */,
 				118DB9D71D89303900854F7B /* ZHCMessagesToolbarContentView.m in Sources */,
+				11E3C35E1D937D1000D368C7 /* MKMapView+ZoomLevel.m in Sources */,
 				118DB9BD1D89303900854F7B /* ZHCMessagesTableviewLayoutAttributes.m in Sources */,
+				115525B01D9273C400357AA9 /* Feedplace3.swift in Sources */,
 				118DB9D21D89303900854F7B /* ZHCMessagesTableViewCell.m in Sources */,
 				118DB9C41D89303900854F7B /* ZHCPhotoMediaItem.m in Sources */,
 				118DB9C31D89303900854F7B /* ZHCMessagesBubbleImage.m in Sources */,
@@ -1119,6 +1145,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		115525B11D92831500357AA9 /* BAChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				115525B21D92831500357AA9 /* BAChat.xcdatamodel */,
+			);
+			currentVersion = 115525B21D92831500357AA9 /* BAChat.xcdatamodel */;
+			path = BAChat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F82D09B71CDFBB4900DD74CF /* Project object */;
 }

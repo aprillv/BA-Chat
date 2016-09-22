@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1097799223147-1bddur952doinln6eqca0v0tgvc222dk.apps.googleusercontent.com</string>
+	<string>911540765104-bq61kio0ik0e56nbasdaog2ii5a151sp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1097799223147-1bddur952doinln6eqca0v0tgvc222dk</string>
+	<string>com.googleusercontent.apps.911540765104-bq61kio0ik0e56nbasdaog2ii5a151sp</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAVmNzxRLNsZJhNx-hmp0gqv8ARHfJ3MX0</string>
+	<string>AIzaSyBEql5SNf3ZvKMLpcDT38nEFy6QpZcglPk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1097799223147</string>
+	<string>911540765104</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ba.BAChat</string>
 	<key>PROJECT_ID</key>
-	<string>bascheduling-54a14</string>
+	<string>hapapp-dc7be</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bascheduling-54a14.appspot.com</string>
+	<string>hapapp-dc7be.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1097799223147:ios:446c9723e5f2a5e6</string>
+	<string>1:911540765104:ios:446c9723e5f2a5e6</string>
 	<key>DATABASE_URL</key>
-	<string>https://bascheduling-54a14.firebaseio.com</string>
+	<string>https://hapapp-dc7be.firebaseio.com</string>
 </dict>
 </plist>

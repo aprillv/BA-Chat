@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Map-->
         <scene sceneID="FRg-uP-vgO">
             <objects>
                 <viewController id="04g-3r-Iw6" customClass="FBViewController" customModule="BAChat" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,17 +25,39 @@
                                     <outlet property="delegate" destination="04g-3r-Iw6" id="wi1-py-Vo0"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSH-4z-bz7">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cQV-TX-X3P"/>
+                                    <constraint firstAttribute="width" constant="50" id="l8x-JW-dIb"/>
+                                </constraints>
+                                <state key="normal" image="near"/>
+                                <connections>
+                                    <action selector="gotoNearby:" destination="04g-3r-Iw6" eventType="touchUpInside" id="xn7-2K-HcT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eIb-qg-syi" firstAttribute="leading" secondItem="xSH-4z-bz7" secondAttribute="trailing" constant="-66" id="3Ui-Tv-rke"/>
                             <constraint firstItem="eIb-qg-syi" firstAttribute="bottom" secondItem="VA6-ml-9Bu" secondAttribute="top" id="3pg-Bi-dqp"/>
                             <constraint firstAttribute="trailing" secondItem="eIb-qg-syi" secondAttribute="trailing" id="YQO-Gb-aka"/>
                             <constraint firstItem="eIb-qg-syi" firstAttribute="top" secondItem="V0V-GJ-oVx" secondAttribute="bottom" id="ZcA-Na-TfO"/>
+                            <constraint firstItem="xSH-4z-bz7" firstAttribute="top" secondItem="eIb-qg-syi" secondAttribute="bottom" constant="-70" id="ffb-SY-Aqu"/>
                             <constraint firstItem="eIb-qg-syi" firstAttribute="leading" secondItem="qlr-Bv-TEC" secondAttribute="leading" id="imt-uP-NBr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Map" id="Eph-SQ-X5V">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="68R-5D-S8T">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="goback:" destination="04g-3r-Iw6" id="IXF-9c-Eh7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="eIb-qg-syi" id="eqI-tI-VKz"/>
+                        <outlet property="nearbtn" destination="xSH-4z-bz7" id="qUf-WG-0Fr"/>
+                        <segue destination="vEx-fS-SLy" kind="show" identifier="gotoChat" id="ErI-A7-2XJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GbD-3E-zqw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -143,10 +165,10 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapc" id="yOw-P4-1gv">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yOw-P4-1gv" id="9h8-Xk-soR">
-                                            <frame key="frameInset" width="1000" height="44"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -380,5 +402,9 @@
     <resources>
         <image name="logo" width="240" height="240"/>
         <image name="mp" width="225" height="225"/>
+        <image name="near" width="44" height="44"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ErI-A7-2XJ"/>
+    </inferredMetricsTieBreakers>
 </document>

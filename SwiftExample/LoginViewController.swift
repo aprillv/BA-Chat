@@ -12,7 +12,7 @@ import Firebase
 import FirebaseAuth
 import MBProgressHUD
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var backView: UIView!{
         didSet{
@@ -63,10 +63,57 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             loginBtn.layer.cornerRadius = 3.0
         }
     }
+    
+    var locationManager : CLLocationManager?
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+            locationManager?.startUpdatingLocation()
+            
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userlocation = locations.last
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        userlocation = nil
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.locationManager?.stopUpdatingLocation()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.locationManager?.startUpdatingLocation()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Chat"
         self.username.text = "April Test"
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        if (authorizationStatus == CLAuthorizationStatus.NotDetermined) {
+            locationManager?.requestWhenInUseAuthorization()
+        } else if (authorizationStatus == CLAuthorizationStatus.AuthorizedWhenInUse) {
+            locationManager?.startUpdatingLocation()
+        }   else{
+            let winner = UIAlertController(title: "BA-Chat",message: "Please turn on location service with this app in order to use this function.",preferredStyle: UIAlertControllerStyle.Alert)
+            let cancelAction = UIAlertAction(title: "OK",style: .Default,handler: {action in [
+                
+                ]})
+            winner.addAction(cancelAction)
+            self.presentViewController(winner,animated:true,completion:nil)
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -99,7 +146,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         FIRAuth.auth()?.signInWithCustomToken(customToken) { (user, error) in
                             if let user = FIRAuth.auth()?.currentUser {
 //                                self.setupFirebase()
-                                hud.hide(true)
+                                hud.hideAnimated(true)
 //                                let name = user.displayName
 //                                let email = user.email
 //                                let photoUrl = user.photoURL
@@ -111,6 +158,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 // your backend server, if you have one. Use
                                 // getTokenWithCompletion:completion: instead.
                             } else {
+                                  hud.hideAnimated(true)
                                 let alert: UIAlertController = UIAlertController(title: "BA - Chat", message: "Something wrong happened, please try again later", preferredStyle: .Alert)
                                 
                                 //Create and add the OK action
@@ -128,34 +176,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 
         }
-//        var ss = "fdasdf"
-//        let para=["username":"April Test"];
-//       let customToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjdXN0b21sb2dpbkBiYXNjaGVkdWxpbmctNTRhMTQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJjdXN0b21sb2dpbkBiYXNjaGVkdWxpbmctNTRhMTQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlhdCI6MTQ3MzMxMTQxMiwiZXhwIjoxNDczMzE1MDEyLCJ1aWQiOm51bGx9.O3Ndfp3xGQ3s23936BTCPLb93rzrpPGzeMV-n7yz-FELe0pvanCUuFpWyc0OWsNx7O6ycKhcvzt_1lt3v8zry9YnXTPEn-ei7dcd47W6Sk_aqpnQoQlZCnklfMRmth0tA3EGLuZJnON0OGnYRK9n5tuQNYpfUh60QHAIoH9E702gFFpQ9lDVlgL4GBOxano-krks6zlnBwGDg31__fup3ZA-tC8kLkgd5OvKKdQn9xSP0iVeyyo7QOGbxUbz31PqyaUuD3IMjsyj2zHKo-WwE4mrPdNvv8-65I9-6x6Zc_hvR6VFfo61wFMhL2_X7ge8H1KY9lKsz9ti30kcUxqc9g"
-//                        //                        FIRApp.configure()
-//                        FIRAuth.auth()?.signInWithCustomToken(customToken) { (user, error) in
-//                            if let user = FIRAuth.auth()?.currentUser {
-////                                print("aaa")
-//                                //                                self.setupFirebase()
-//                                
-//                                //                                let name = user.displayName
-//                                //                                let email = user.email
-//                                //                                let photoUrl = user.photoURL
-//                                //                                let uid = user.uid;  // The user's ID, unique to the Firebase project.
-//                                self.performSegueWithIdentifier("Chat", sender: user)
-//                                
-//                                //                                print(uid)
-//                                //                                print(uid)
-//                                // Do NOT use this value to authenticate with
-//                                // your backend server, if you have one. Use
-//                                // getTokenWithCompletion:completion: inst
-//                            } else {
-//                                // No user is signed in.
-//                                print("error")
-//                            }
-//                        }
         
         
     }
+    
+    var userlocation : CLLocation?
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Chat" {
@@ -163,6 +188,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 c.user = a
 //                c.senderId = a.uid ?? "April Test"
 //                c.senderDisplayName = a.displayName ?? "April Test"
+            }
+        }else if segue.identifier == "showMainMap"{
+            if let c = segue.destinationViewController as? FBViewController{
+                c.userlocation = userlocation
             }
         }
     }

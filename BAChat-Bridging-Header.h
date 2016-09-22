@@ -15,3 +15,4 @@
 #import "ZHCMessagesAvatarImageFactory.h"
 #import "ZHCMessagesTimestampFormatter.h"
 #import "ImageBrowserViewController.h"
+#import "MKMapView+ZoomLevel.h"

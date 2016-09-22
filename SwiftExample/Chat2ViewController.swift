@@ -24,18 +24,19 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
 
     
     
-    var datachaturl = "https://bascheduling-54a14.firebaseio.com/chats"
-    var storageUrl = "gs://bascheduling-54a14.appspot.com"
+    var datachaturl = "https://hapapp-dc7be.firebaseio.com/chats"
+    var storageUrl = "gs://hapapp-dc7be.appspot.com"
     var pictburl = "chatpic/iphone"
     var filetburl = "chatfile/iphone"
     var videotburl = "chatvideo/iphone"
     var voicetburl = "chatvoice/iphone"
-    
+    var idfeedplaces1 : NSInteger?
+    var idfp3 : NSInteger?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Chat"
-        
+//        self.title = "Chat"
+        datachaturl = datachaturl + "/\(idfp3 ?? 0)"
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector(setupFirebase0()),
                                  forControlEvents: .ValueChanged)
@@ -450,6 +451,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             //            print(msgDate, creadate, voice)
             var copyMessage :ZHCMessage?
             if (self.sendingDate.contains(creadate ?? 0)){
+                self.updateChatCnt()
                 if self.sendingDate.count == 1 {
                     self.sendingDate.removeAll()
                 }
@@ -1058,6 +1060,16 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             player.play()
         }
     }
+    
+    private func updateChatCnt(){
+        Alamofire.request(.GET, "http://sdk.itshapapp.com/dbAddChatCount.json",parameters: ["idfeedplaces1":"\(idfeedplaces1 ?? 0)","idfeedplaces3":"\(idfp3 ?? 0)"]).responseData(completionHandler: { (req) in
+            if req.result.error == nil {
+                
+            }
+        })
+    }
+    
+    
     
 //    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        

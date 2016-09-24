@@ -16,17 +16,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, CLLocationMana
 
     @IBOutlet weak var backView: UIView!{
         didSet{
-//            backView.layer.cornerRadius = 3
-//            backView.layer.borderColor = UIColor.lightGrayColor().CGColor
-//            backView.layer.borderWidth = 1.0
-            
-//            backView.layer.borderColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1).CGColor
-//            backView.layer.borderWidth = 0
-//            
-//            backView.layer.shadowColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1).CGColor
-//            backView.layer.shadowOpacity = 1
-//            backView.layer.shadowRadius = 1.0
-//            backView.layer.shadowOffset = CGSize(width: -1.0, height: 0)
             
             backView.backgroundColor = UIColor.whiteColor()
             backView.layer.borderColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1).CGColor
@@ -185,13 +174,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, CLLocationMana
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Chat" {
             if let c = segue.destinationViewController as? Chat2ViewController, let a = sender as? FIRUser {
-                c.user = a
+                c.user = a.uid
 //                c.senderId = a.uid ?? "April Test"
 //                c.senderDisplayName = a.displayName ?? "April Test"
             }
         }else if segue.identifier == "showMainMap"{
             if let c = segue.destinationViewController as? FBViewController{
                 c.userlocation = userlocation
+//                c.user = send as? FIRUser
+                if let a = sender as? FIRUser {
+                    NSUserDefaults.standardUserDefaults().setObject(a.uid, forKey: "FBUER")
+                }
+                
             }
         }
     }

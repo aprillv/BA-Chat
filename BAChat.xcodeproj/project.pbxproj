@@ -15,12 +15,13 @@
 		115525851D92286200357AA9 /* FBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525841D92286200357AA9 /* FBViewController.swift */; };
 		115525A51D9234C300357AA9 /* Feedplaces1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525A41D9234C300357AA9 /* Feedplaces1.swift */; };
 		115525A71D924C2D00357AA9 /* ChatObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525A61D924C2D00357AA9 /* ChatObject.swift */; };
-		115525AD1D92636900357AA9 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525AB1D92636900357AA9 /* CustomCalloutView.swift */; };
-		115525AE1D92636900357AA9 /* CustomCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115525AC1D92636900357AA9 /* CustomCalloutView.xib */; };
 		115525B01D9273C400357AA9 /* Feedplace3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525AF1D9273C400357AA9 /* Feedplace3.swift */; };
 		115525B31D92831500357AA9 /* BAChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 115525B11D92831500357AA9 /* BAChat.xcdatamodeld */; };
 		115525B51D92844900357AA9 /* cl_coreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115525B41D92844900357AA9 /* cl_coreData.swift */; };
 		115CFF9D1D8A2F6D00119E2E /* Map2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */; };
+		117434E61D94F15F0090C1A5 /* SMClassicCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117434E21D94F15F0090C1A5 /* SMClassicCalloutView.m */; };
+		117434E71D94F15F0090C1A5 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117434E41D94F15F0090C1A5 /* SMCalloutView.m */; };
+		117434ED1D950A9A0090C1A5 /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117434EC1D950A9A0090C1A5 /* CustomMapView.m */; };
 		118DB9AB1D89303900854F7B /* ZHCMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 118DB9441D89303900854F7B /* ZHCMessagesAssets.bundle */; };
 		118DB9AC1D89303900854F7B /* NSArray+ZHCMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 118DB9471D89303900854F7B /* NSArray+ZHCMessages.m */; };
 		118DB9AD1D89303900854F7B /* NSBundle+ZHCMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 118DB9491D89303900854F7B /* NSBundle+ZHCMessages.m */; };
@@ -104,12 +105,16 @@
 		115525841D92286200357AA9 /* FBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBViewController.swift; sourceTree = "<group>"; };
 		115525A41D9234C300357AA9 /* Feedplaces1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feedplaces1.swift; sourceTree = "<group>"; };
 		115525A61D924C2D00357AA9 /* ChatObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatObject.swift; sourceTree = "<group>"; };
-		115525AB1D92636900357AA9 /* CustomCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
-		115525AC1D92636900357AA9 /* CustomCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCalloutView.xib; sourceTree = "<group>"; };
 		115525AF1D9273C400357AA9 /* Feedplace3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feedplace3.swift; sourceTree = "<group>"; };
 		115525B21D92831500357AA9 /* BAChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BAChat.xcdatamodel; sourceTree = "<group>"; };
 		115525B41D92844900357AA9 /* cl_coreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cl_coreData.swift; sourceTree = "<group>"; };
 		115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map2ViewController.swift; sourceTree = "<group>"; };
+		117434E21D94F15F0090C1A5 /* SMClassicCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMClassicCalloutView.m; sourceTree = "<group>"; };
+		117434E31D94F15F0090C1A5 /* SMClassicCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMClassicCalloutView.h; sourceTree = "<group>"; };
+		117434E41D94F15F0090C1A5 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
+		117434E51D94F15F0090C1A5 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
+		117434EB1D950A9A0090C1A5 /* CustomMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = "<group>"; };
+		117434EC1D950A9A0090C1A5 /* CustomMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = "<group>"; };
 		118DB9441D89303900854F7B /* ZHCMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZHCMessagesAssets.bundle; sourceTree = "<group>"; };
 		118DB9461D89303900854F7B /* NSArray+ZHCMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ZHCMessages.h"; sourceTree = "<group>"; };
 		118DB9471D89303900854F7B /* NSArray+ZHCMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ZHCMessages.m"; sourceTree = "<group>"; };
@@ -266,12 +271,18 @@
 		115525A31D9234A800357AA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				117434E21D94F15F0090C1A5 /* SMClassicCalloutView.m */,
+				117434E31D94F15F0090C1A5 /* SMClassicCalloutView.h */,
+				117434E41D94F15F0090C1A5 /* SMCalloutView.m */,
+				117434E51D94F15F0090C1A5 /* SMCalloutView.h */,
 				115525B41D92844900357AA9 /* cl_coreData.swift */,
 				115525A61D924C2D00357AA9 /* ChatObject.swift */,
 				115525A41D9234C300357AA9 /* Feedplaces1.swift */,
 				115525AF1D9273C400357AA9 /* Feedplace3.swift */,
 				11E3C35C1D937D1000D368C7 /* MKMapView+ZoomLevel.h */,
 				11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */,
+				117434EB1D950A9A0090C1A5 /* CustomMapView.h */,
+				117434EC1D950A9A0090C1A5 /* CustomMapView.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -502,8 +513,6 @@
 		F82D09C11CDFBB4900DD74CF /* BAChat */ = {
 			isa = PBXGroup;
 			children = (
-				115525AB1D92636900357AA9 /* CustomCalloutView.swift */,
-				115525AC1D92636900357AA9 /* CustomCalloutView.xib */,
 				115525A31D9234A800357AA9 /* Models */,
 				115525841D92286200357AA9 /* FBViewController.swift */,
 				11ED8D381D862F080080F6E7 /* SwiftExample.entitlements */,
@@ -640,7 +649,6 @@
 				118DB9AB1D89303900854F7B /* ZHCMessagesAssets.bundle in Resources */,
 				118DB9B41D89303900854F7B /* ZHCMessagesViewController.xib in Resources */,
 				118DB9D61D89303900854F7B /* ZHCMessagesTableViewCellOutcoming.xib in Resources */,
-				115525AE1D92636900357AA9 /* CustomCalloutView.xib in Resources */,
 				11E3C3601D93884F00D368C7 /* GoogleService-Info.plist in Resources */,
 				F82D09C81CDFBB4900DD74CF /* Main.storyboard in Resources */,
 			);
@@ -875,16 +883,18 @@
 			files = (
 				11D544681D81670300D8428C /* LoginViewController.swift in Sources */,
 				115525B31D92831500357AA9 /* BAChat.xcdatamodeld in Sources */,
+				117434E61D94F15F0090C1A5 /* SMClassicCalloutView.m in Sources */,
 				F80276D31CE38FEB00063D88 /* Conversation.swift in Sources */,
 				115525851D92286200357AA9 /* FBViewController.swift in Sources */,
 				118DB9CD1D89303900854F7B /* ZHCMessagesLabel.m in Sources */,
+				117434ED1D950A9A0090C1A5 /* CustomMapView.m in Sources */,
 				115525B51D92844900357AA9 /* cl_coreData.swift in Sources */,
+				117434E71D94F15F0090C1A5 /* SMCalloutView.m in Sources */,
 				118DB9AE1D89303900854F7B /* NSString+Emoji.m in Sources */,
 				118E51DC1D8687BA004DDC14 /* MicrophoneViewController.swift in Sources */,
 				118DB9C71D89303900854F7B /* ZHCMessagesVoiceRecorder.m in Sources */,
 				118DB9CB1D89303900854F7B /* ZHCMessagesEmojiView.m in Sources */,
 				118DB9CA1D89303900854F7B /* ZHCMessagesComposerTextView.m in Sources */,
-				115525AD1D92636900357AA9 /* CustomCalloutView.swift in Sources */,
 				118DB9AD1D89303900854F7B /* NSBundle+ZHCMessages.m in Sources */,
 				118DB9C61D89303900854F7B /* ZHCMessagesAudioPlayer.m in Sources */,
 				118DB9CC1D89303900854F7B /* ZHCMessagesInputToolbar.m in Sources */,

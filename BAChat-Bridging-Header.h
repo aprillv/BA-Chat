@@ -16,3 +16,5 @@
 #import "ZHCMessagesTimestampFormatter.h"
 #import "ImageBrowserViewController.h"
 #import "MKMapView+ZoomLevel.h"
+#import "SMCalloutView.h"
+#import "CustomMapView.h"

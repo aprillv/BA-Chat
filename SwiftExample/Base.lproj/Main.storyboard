@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eIb-qg-syi">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eIb-qg-syi" customClass="CustomMapView">
                                 <connections>
                                     <outlet property="delegate" destination="04g-3r-Iw6" id="wi1-py-Vo0"/>
                                 </connections>
@@ -47,7 +47,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="Eph-SQ-X5V">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="68R-5D-S8T">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="68R-5D-S8T">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="goback:" destination="04g-3r-Iw6" id="IXF-9c-Eh7"/>
@@ -168,7 +168,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yOw-P4-1gv" id="9h8-Xk-soR">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -299,7 +299,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="MjV-yf-z9P">
-                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="nTK-4g-WqS">
+                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="nTK-4g-WqS">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="goback:" destination="vEx-fS-SLy" id="zx4-R2-MoE"/>
@@ -400,6 +400,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back" width="13" height="21"/>
         <image name="logo" width="240" height="240"/>
         <image name="mp" width="225" height="225"/>
         <image name="near" width="44" height="44"/>

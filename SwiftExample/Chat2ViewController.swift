@@ -35,6 +35,10 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let users = NSUserDefaults.standardUserDefaults().valueForKey("FBUER") as? String {
+        user = users
+        }
+        
 //        self.title = "Chat"
         datachaturl = datachaturl + "/\(idfp3 ?? 0)"
         let refreshControl = UIRefreshControl()
@@ -51,13 +55,13 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
 //    #pragma mark - ZHCMessagesTableViewDataSource
     
     
-    var user: FIRUser?
+    var user: String?
     override func senderDisplayName() -> String {
-        return user?.uid ?? ""
+        return user ?? ""
     }
     
     override func senderId() -> String {
-        return user?.uid ?? ""
+        return user ?? ""
     }
 
     override func tableView(tableView: ZHCMessagesTableView, messageDataForCellAtIndexPath indexPath: NSIndexPath) -> ZHCMessageData {
@@ -114,17 +118,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
 //    }
     
     override func tableView(tableView: ZHCMessagesTableView, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        let msg = self.messages[indexPath.row]
-//        if msg.senderId == self.senderId() {
-//            return 0
-//        }
-//        
-//        if indexPath.row > 0 {
-//            let msg0 = self.messages[indexPath.row - 1]
-//            if msg0.senderId == msg.senderId {
-//                return 0
-//            }
-//        }
+
          return 20.0
     }
     
@@ -170,47 +164,10 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     
     func buildLocationItem(lat: Double, lng: Double) -> ZHCLocationMediaItem {
         
-//        CLLocation *ferryBuildingInSF = [[CLLocation alloc] initWithLatitude:22.610599 longitude:114.030238];
-//        
-//        ZHCLocationMediaItem *locationItem = [[ZHCLocationMediaItem alloc] init];
-//        [locationItem setLocation:ferryBuildingInSF withCompletionHandler:completion];
-//        locationItem.appliesMediaViewMaskAsOutgoing = YES;
-//        
-//        ZHCMessage *locationMessage = [ZHCMessage messageWithSenderId:kZHCDemoAvatarIdJobs
-//        displayName:kZHCDemoAvatarDisplayNameJobs
-//        media:locationItem];
-//        [self.messages addObject:locationMessage];
-//        
         let ferryBuildingInSF = CLLocation(latitude: lat, longitude: lng)
-        
         let locationItem = ZHCLocationMediaItem(location: ferryBuildingInSF)
-        
-//        locationItem.setLocation(ferryBuildingInSF) {
-//            self.collectionView!.reloadData()
-//        }
-        
-        
         return locationItem
     }
-    
-//    #pragma mark － TableView datasource
-//    -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//    {
-//    return 1;
-//    }
-//    
-//    -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//    {
-//    return self.demoData.messages.count;
-//    }
-//    
-//    -(UITableViewCell *)tableView:(ZHCMessagesTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//    {
-//    ZHCMessagesTableViewCell *cell = (ZHCMessagesTableViewCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-//    [self configureCell:cell atIndexPath:indexPath];
-//    return cell;
-//    }
-//    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -221,24 +178,10 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        ZHCMessagesTableViewCell *cell = (ZHCMessagesTableViewCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-//        [self configureCell:cell atIndexPath:indexPath];
-//        return cell;
         
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         if let c = cell as? ZHCMessagesTableViewCell {
             c.textView?.textColor = UIColor.blackColor();
-//            print("000000000", c.avatarImageView?.frame)
-           // let message = self.messages[indexPath.row]
-           // if (!message.isMediaMessage) {
-           //     if (message.senderId == self.senderId()) {
-           //         c.textView?.textColor = UIColor.blackColor();
-           //     }else{
-           //         c.textView?.textColor = UIColor.whiteColor();
-           //     }
-//                cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
-//                    NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
-          //  }
         }
         return cell
     }
@@ -389,14 +332,6 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     
     var refreshControl1 : UIRefreshControl?
     
-//    function checkIfUserExists(userId) {
-//    var usersRef = new Firebase(USERS_LOCATION);
-//    usersRef.child(userId).once('value', function(snapshot) {
-//    var exists = (snapshot.val() !== null);
-//    userExistsCallback(userId, exists);
-//    });
-//    }
-    
     func setupFirebase() {
         
         
@@ -412,14 +347,6 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
         let query = messagesRef.queryLimitedToLast(UInt(25))
 //        hud.hideAnimated(true)
         query.observeEventType(.ChildAdded, withBlock: {(snapshot) in
-            
-//            if self.refreshControl1 == nil {
-//            let refreshControl = UIRefreshControl()
-//            refreshControl.addTarget(self, action: Selector(self.setupFirebaseMore()), forControlEvents: UIControlEvents.ValueChanged)
-//            self.refreshControl1 = refreshControl
-//            //        refreshControl?.attributedTitle = NSAttributedString(string: "Loading messages... ...")
-//                self.messageTableView?.addSubview(refreshControl)
-//            }
             
             let dic = snapshot.value
                         print(dic)
@@ -451,7 +378,6 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             //            print(msgDate, creadate, voice)
             var copyMessage :ZHCMessage?
             if (self.sendingDate.contains(creadate ?? 0)){
-                self.updateChatCnt()
                 if self.sendingDate.count == 1 {
                     self.sendingDate.removeAll()
                 }
@@ -599,6 +525,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                     "video": "",
                     "videotime": 0
                     ])
+                self.updateChatCnt()
                 self.finishSendingMessageAnimated(true)
             }
         
@@ -769,6 +696,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 "voice": "",
                 "voicemsecond": 0
                 ])
+            self.updateChatCnt()
             
         }
         
@@ -855,6 +783,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                         "video": text ?? "",
                         "videotime": time
                         ])
+                    self.updateChatCnt()
                     self.finishSendingMessageAnimated(true)
                 }
             }
@@ -862,40 +791,6 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             return
         } catch {
             debugPrint("Generic error")
-        }
-        
-        
-        // !! check the error before proceeding
-        
-        
-        riversRef.putFile(url, metadata: metadata).observeStatus(.Success) { (snapshot) in
-            // When the image has successfully uploaded, we get it's download URL
-            let text = snapshot.metadata?.downloadURL()?.absoluteString
-            //            print(text)
-            let ref = FIRDatabase.database()
-            let  messagesRef =  ref.referenceFromURL(self.datachaturl)
-            
-            
-            //            let b : NSInteger = a
-            
-            //            let videotime = dic?.valueForKey("videotime") as? Double
-            //            let video = dic?.valueForKey("video") as? String
-            
-            messagesRef.childByAutoId().setValue([
-                "message": "",
-                "username": self.senderId(),
-                "pic": "",
-                "creadate": a,
-                "fileurl" : "",
-                "gps": false,
-                "latitude": 0.0,
-                "longitude" : 0.0,
-                "voice": "",
-                "voicemsecond": 0,
-                "video": text ?? "",
-                "videotime": time
-                ])
-            self.finishSendingMessageAnimated(true)
         }
         
     }
@@ -983,6 +878,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             "video": "",
             "videotime": 0
             ])
+        updateChatCnt()
         self.finishSendingMessageAnimated(true)
     }
     
@@ -1004,7 +900,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             "voice": "",
             "voicemsecond": 0
             ])
-        
+        updateChatCnt()
         //        let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         //        self.messages.append(message)
         self.finishSendingMessageAnimated(true)

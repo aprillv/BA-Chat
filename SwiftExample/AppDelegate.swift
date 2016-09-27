@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import CoreData
 import Alamofire
+import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,10 +22,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FIRApp.configure()
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        if let un = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String,
+            let uid = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
+            // get your storyboard
+            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: ChatConstants.FBAuthed)
+            self.getTokenFromServer(un, phoneNo: uid)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // instantiate your desired ViewController
+            //let rootController = storyboard.instantiateViewControllerWithIdentifier("FBViewController") as! FBViewController
+            
+            let nav0 = storyboard.instantiateViewControllerWithIdentifier("nav1") as! UINavigationController
+          //  nav0.setViewControllers([rootController], animated: true)
+//            let nav = UINavigationController(rootViewController: rootController)
+            
+            // Because self.window is an optional you should check it's value first and assign your rootViewController
+            if let window = self.window {
+                window.rootViewController = nav0
+            }
+            
+//            let rootView: FBViewController = FBViewController()
+//            
+//            if let window = self.window{
+//                window.rootViewController = rootView
+//            }
+        }
         //UIApplication.sharedApplication().statu
         // Override point for customization after application launch.
         return true
     }
+    
+    private func getTokenFromServer(username: String, phoneNo: String){
+        let para=["phoneNumber": phoneNo
+            ,"username": username];
+        //let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+       // hud.label.text = "Login..."
+        Alamofire.request(.GET, ChatConstants.ServiceURL + ChatConstants.GetFirebaseTokenSeviceURL,parameters:para)
+            .responseJSON { response in
+                let JSON = response.result.value
+                if let customToken = JSON?.valueForKey("message") as? String{
+                    //                        FIRApp.configure()
+                    FIRAuth.auth()?.signInWithCustomToken(customToken) { (user, error) in
+                        if let user = FIRAuth.auth()?.currentUser {
+                            if user.uid == phoneNo {
+                                NSUserDefaults.standardUserDefaults().setInteger(1, forKey: ChatConstants.FBAuthed)
+                            }
+                        }
+                    }
+                    
+                }
+                
+                
+        }
+        
+        
+    }
+    
     
         func getAllFp1() {
             let cl = cl_coreData()
@@ -62,9 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
+   
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -132,6 +186,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
+        //        for win in UIApplication.sharedApplication().windows {
+        //            let a = win.subviews
+        //            if a.count > 0 {
+        //                for vi in a {
+        //                    if vi .isKindOfClass(UIAlertController)
+        //                }
+        //            }
+        //        }
+//        CLocationManager.sharedInstance.updateLocation()
+        let c = UIApplication.sharedApplication().keyWindow?.rootViewController
+        if let a = c?.presentedViewController as? UIAlertController {
+            if a.message == "Please turn on location service with this app in order to use this function." {
+                let status = CLLocationManager.authorizationStatus()
+                if status == .AuthorizedAlways{
+                    c?.dismissViewControllerAnimated(true){}
+                }
+            }
+            
+        }
+        
+        
+        //        endBackgroundUpdateTask()
+    }
+    
     
 
 

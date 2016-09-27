@@ -199,6 +199,43 @@ class cl_coreData: NSObject {
         
     }
     
+    func getIdFeedplace1By(pn: Double, ps : Double, pw: Double, pe: Double) -> [Feedplaces1]?{
+        print(pn, ps, pw, pe)
+        let fetchRequest = NSFetchRequest(entityName: "FP1")
+        let predicate = NSPredicate(format: "(latitude < \(pn)) and (latitude > \(ps)) and (longitude > \(pw)) and (longitude < \(pe))")
+        fetchRequest.predicate = predicate
+        
+        var rtn = [Feedplaces1]()
+        //3
+        //        var a : Feedplaces1?
+        do {
+            let results =
+                try managedObjectContext.executeFetchRequest(fetchRequest)
+            if let t = results as? [NSManagedObject] {
+                if let t = results as? [NSManagedObject] {
+                    for item in t {
+                        let tmp : Feedplaces1 = Feedplaces1(dicInfo : nil)
+                        tmp.idfeedplaces1 = item.valueForKey("idfeedplaces1") as? NSInteger
+                        tmp.placename = item.valueForKey("placename") as? String
+                        tmp.chatcount = item.valueForKey("chatcount") as? NSInteger
+                        tmp.latitude = item.valueForKey("latitude") as? Double
+                        tmp.longitude = item.valueForKey("longitude") as? Double
+                        tmp.pn = item.valueForKey("pn") as? Double
+                        tmp.ps = item.valueForKey("ps") as? Double
+                        tmp.pw = item.valueForKey("pw") as? Double
+                        tmp.pe = item.valueForKey("pe") as? Double
+                        rtn.append(tmp)
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return rtn
+        
+    }
+    
+    
     
     
 //    func getAllFrequency() -> [FrequencyItem]{

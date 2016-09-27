@@ -34,34 +34,70 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     var idfp3 : NSInteger?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let users = NSUserDefaults.standardUserDefaults().valueForKey("FBUER") as? String {
-        user = users
+//        FBUER
+        if let users = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String {
+            self.userName = users
+        }
+        if let users = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
+            self.userID = users
         }
         
-//        self.title = "Chat"
-        datachaturl = datachaturl + "/\(idfp3 ?? 0)"
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: Selector(setupFirebase0()),
-                                 forControlEvents: .ValueChanged)
-        self.refreshControl1 = refreshControl
-        
-                refreshControl.attributedTitle = NSAttributedString(string: "Loading more messages...")
-        self.messageTableView?.addSubview(refreshControl)
-        
-//        self.setupFirebase()
+        if NSUserDefaults.standardUserDefaults().integerForKey(ChatConstants.FBAuthed) ?? 0 == 1 {
+            datachaturl = datachaturl + "/\(idfp3 ?? 0)"
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: Selector(setupFirebase0()),
+                                     forControlEvents: .ValueChanged)
+            self.refreshControl1 = refreshControl
+            
+            refreshControl.attributedTitle = NSAttributedString(string: "Loading more messages...")
+            self.messageTableView?.addSubview(refreshControl)
+        }else{
+            let para=["phoneNumber": self.userID ?? ""
+                ,"username": self.userName ?? ""];
+            //let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            // hud.label.text = "Login..."
+            Alamofire.request(.GET, ChatConstants.ServiceURL + ChatConstants.GetFirebaseTokenSeviceURL
+                ,parameters: para)
+                .responseJSON { response in
+                    let JSON = response.result.value
+                    if let customToken = JSON?.valueForKey("message") as? String{
+                        //                        FIRApp.configure()
+                        FIRAuth.auth()?.signInWithCustomToken(customToken) { (user, error) in
+                            if let user = FIRAuth.auth()?.currentUser {
+                                if user.uid == self.userID {
+                                    NSUserDefaults.standardUserDefaults().setInteger(1, forKey: ChatConstants.FBAuthed)
+                                    
+                                }
+                                
+                                
+                                self.datachaturl = self.datachaturl + "/\(self.idfp3 ?? 0)"
+                                let refreshControl = UIRefreshControl()
+                                refreshControl.addTarget(self, action: Selector(self.setupFirebase0()),
+                                    forControlEvents: .ValueChanged)
+                                self.refreshControl1 = refreshControl
+                                
+                                refreshControl.attributedTitle = NSAttributedString(string: "Loading more messages...")
+                                self.messageTableView?.addSubview(refreshControl)
+                            }
+                        }
+                        
+                    }
+                    
+                    
+            }
+        }
         
     }
-//    #pragma mark - ZHCMessagesTableViewDataSource
     
     
-    var user: String?
+    var userName: String?
+    var userID: String?
     override func senderDisplayName() -> String {
-        return user ?? ""
+        return userName ?? ""
     }
     
     override func senderId() -> String {
-        return user ?? ""
+        return userID ?? ""
     }
 
     override func tableView(tableView: ZHCMessagesTableView, messageDataForCellAtIndexPath indexPath: NSIndexPath) -> ZHCMessageData {
@@ -223,7 +259,8 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                     print(dic)
                 
                     let text = dic?.valueForKey("message") as? String
-                    let sender = dic?.valueForKey("username") as? String
+                    let senderID = (dic?.valueForKey("telephoneNo") as? String) ?? (dic?.valueForKey("username") as? String)
+                let senderName = (dic?.valueForKey("username") as? String)
                     let imageUrl = dic?.valueForKey("pic") as? String
                     let creadate = dic?.valueForKey("creadate") as? NSInteger
                     let fileurl = dic?.valueForKey("fileurl") as? String
@@ -258,8 +295,8 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         let photoItem = ZHCPhoto2MediaItem(image: NSURL(string: mapsurl)!)
                         photoItem.lat = "\(latitude ?? 0)"
                         photoItem.lng = "\(longitude ?? 0)"
-                        photoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: photoItem)
+                        photoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                        copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: photoItem)
                         
                         
                         
@@ -268,8 +305,8 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         
                         let audioItem = ZHCAudioMediaItem()
                         
-                        audioItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: audioItem)
+                        audioItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                        copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: audioItem)
                         //                print("fafsdfs");
                         //                print(voice!)
                         audioItem.audioDataURL = voice!
@@ -292,15 +329,15 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         }
                         
                         
-                        videoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: videoItem)
+                        videoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                        copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: videoItem)
                     }else if imageUrl != nil  && imageUrl != ""{
                         // image
                         
                         
                         let photoItem = ZHCPhoto2MediaItem(image: NSURL(string: imageUrl!)!)
-                        photoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: photoItem)
+                        photoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                        copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: photoItem)
                         
                         
                         
@@ -309,7 +346,8 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         // text Message
                         //                let i = ZHCMediaItem()
                         //                i.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, text: text ?? "empty")
+                        print(senderID, senderName)
+                        copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, text: text ?? "empty")
                         
                     }
                     
@@ -352,7 +390,8 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         print(dic)
             
             let text = dic?.valueForKey("message") as? String
-            let sender = dic?.valueForKey("username") as? String
+            let senderID = (dic?.valueForKey("telephoneNo") as? String) ?? (dic?.valueForKey("username") as? String)
+            let senderName = (dic?.valueForKey("username") as? String)
             let imageUrl = dic?.valueForKey("pic") as? String
             let creadate = dic?.valueForKey("creadate") as? NSInteger
             let fileurl = dic?.valueForKey("fileurl") as? String
@@ -389,8 +428,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 let photoItem = ZHCPhoto2MediaItem(image: NSURL(string: mapsurl)!)
                 photoItem.lat = "\(latitude ?? 0)"
                 photoItem.lng = "\(longitude ?? 0)"
-                photoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: photoItem)
+                photoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: photoItem)
                 
                 
                 //let locationItem = self.buildLocationItem(latitude ?? 0, lng: longitude ?? 0)
@@ -404,8 +443,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 
                 let audioItem = ZHCAudioMediaItem()
                 
-                audioItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: audioItem)
+                audioItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: audioItem)
 //                print("fafsdfs");
 //                print(voice!)
                 audioItem.audioDataURL = voice!
@@ -428,15 +467,15 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 }
                 
                 
-                videoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: videoItem)
+                videoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: videoItem)
             }else if imageUrl != nil  && imageUrl != ""{
                 // image
                 
                 
                     let photoItem = ZHCPhoto2MediaItem(image: NSURL(string: imageUrl!)!)
-                    photoItem.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                    copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, media: photoItem)
+                    photoItem.appliesMediaViewMaskAsOutgoing = (senderID == self.senderId())
+                    copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, media: photoItem)
                
                 
                 
@@ -445,7 +484,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 // text Message
 //                let i = ZHCMediaItem()
 //                i.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                copyMessage = ZHCMessage(senderId: (sender ?? ""), senderDisplayName: (sender ?? ""), date: msgDate, text: text ?? "empty")
+                copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, text: text ?? "empty")
                 
             }
             
@@ -513,7 +552,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 
                 messagesRef.childByAutoId().setValue([
                     "message": "",
-                    "username": self.senderId(),
+                    "username": self.senderDisplayName(),
+                    "telephoneNo": self.senderId(),
                     "pic": "",
                     "creadate": a,
                     "fileurl" : "",
@@ -686,7 +726,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             //            let b : NSInteger = a
             messagesRef.childByAutoId().setValue([
                 "message": "",
-                "username": self.senderId(),
+                "username": self.senderDisplayName(),
+                "telephoneNo": self.senderId(),
                 "pic":text ?? "",
                 "creadate": a,
                 "fileurl" : "",
@@ -770,7 +811,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                     
                     messagesRef.childByAutoId().setValue([
                         "message": "",
-                        "username": self.senderId(),
+                        "username": self.senderDisplayName(),
+                        "telephoneNo": self.senderId(),
                         "videosnapshot": text0 ?? "",
                         "pic": "",
                         "creadate": a,
@@ -866,7 +908,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         
         messagesRef.childByAutoId().setValue([
             "message": address ?? "",
-            "username": self.senderId(),
+            "username": self.senderDisplayName(),
+            "telephoneNo": self.senderId(),
             "pic": "",
             "creadate": a,
             "fileurl" : "",
@@ -890,7 +933,8 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         let b : NSInteger = Int(a)
         messagesRef.childByAutoId().setValue([
             "message": text,
-            "username": senderId,
+            "username": self.senderDisplayName(),
+            "telephoneNo": self.senderId(),
             "pic":"",
             "creadate": b,
             "fileurl" : "",

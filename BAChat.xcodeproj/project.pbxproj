@@ -70,6 +70,8 @@
 		118DB9D81D89303900854F7B /* ZHCMessagesToolbarContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118DB9AA1D89303900854F7B /* ZHCMessagesToolbarContentView.xib */; };
 		118E51DC1D8687BA004DDC14 /* MicrophoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E51DB1D8687BA004DDC14 /* MicrophoneViewController.swift */; };
 		1196A0771D8931E1001367BA /* Chat2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0761D8931E1001367BA /* Chat2ViewController.swift */; };
+		11A10EAD1D9A0021008F3214 /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A10EAC1D9A0021008F3214 /* VerifyCodeViewController.swift */; };
+		11A10EAF1D9A0747008F3214 /* ChatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A10EAE1D9A0747008F3214 /* ChatConstants.swift */; };
 		11D544681D81670300D8428C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D544661D81670300D8428C /* LoginViewController.swift */; };
 		11E3C35E1D937D1000D368C7 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */; };
 		11E3C3601D93884F00D368C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11E3C35F1D93884F00D368C7 /* GoogleService-Info.plist */; };
@@ -213,6 +215,8 @@
 		118E51DB1D8687BA004DDC14 /* MicrophoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneViewController.swift; sourceTree = "<group>"; };
 		1196A0761D8931E1001367BA /* Chat2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat2ViewController.swift; sourceTree = "<group>"; };
 		1196A0B71D89356C001367BA /* BAChat-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BAChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		11A10EAC1D9A0021008F3214 /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
+		11A10EAE1D9A0747008F3214 /* ChatConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConstants.swift; sourceTree = "<group>"; };
 		11D544661D81670300D8428C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		11E3C35C1D937D1000D368C7 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		11E3C35D1D937D1000D368C7 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 		F82D09B61CDFBB4900DD74CF = {
 			isa = PBXGroup;
 			children = (
+				11A10EAE1D9A0747008F3214 /* ChatConstants.swift */,
 				1196A0B71D89356C001367BA /* BAChat-Bridging-Header.h */,
 				118DB9421D89303900854F7B /* ZHCMessagesViewController */,
 				F82D09C11CDFBB4900DD74CF /* BAChat */,
@@ -526,6 +531,7 @@
 				1196A0761D8931E1001367BA /* Chat2ViewController.swift */,
 				115CFF9C1D8A2F6D00119E2E /* Map2ViewController.swift */,
 				115525B11D92831500357AA9 /* BAChat.xcdatamodeld */,
+				11A10EAC1D9A0021008F3214 /* VerifyCodeViewController.swift */,
 			);
 			name = BAChat;
 			path = SwiftExample;
@@ -895,6 +901,7 @@
 				118DB9C71D89303900854F7B /* ZHCMessagesVoiceRecorder.m in Sources */,
 				118DB9CB1D89303900854F7B /* ZHCMessagesEmojiView.m in Sources */,
 				118DB9CA1D89303900854F7B /* ZHCMessagesComposerTextView.m in Sources */,
+				11A10EAF1D9A0747008F3214 /* ChatConstants.swift in Sources */,
 				118DB9AD1D89303900854F7B /* NSBundle+ZHCMessages.m in Sources */,
 				118DB9C61D89303900854F7B /* ZHCMessagesAudioPlayer.m in Sources */,
 				118DB9CC1D89303900854F7B /* ZHCMessagesInputToolbar.m in Sources */,
@@ -921,6 +928,7 @@
 				118DB9B31D89303900854F7B /* ZHCMessagesViewController.m in Sources */,
 				118DB9C81D89303900854F7B /* ZHCMessagesAudioProgressHUD.m in Sources */,
 				118DB9CF1D89303900854F7B /* ZHCMessagesMoreItem.m in Sources */,
+				11A10EAD1D9A0021008F3214 /* VerifyCodeViewController.swift in Sources */,
 				118DB9C11D89303900854F7B /* ZHCMessage.m in Sources */,
 				118DB9BF1D89303900854F7B /* ZHCLocationMediaItem.m in Sources */,
 				113055E71D8A2581007FF92B /* ImageBrowserViewController.m in Sources */,

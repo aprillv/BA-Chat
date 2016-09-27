@@ -14,4 +14,8 @@
                   zoomLevel:(NSUInteger)zoomLevel
                    animated:(BOOL)animated;
 - (NSUInteger)getCurrentZoomLevel;
+
+- (BOOL)mapViewRegionDidChangeFromUserInteraction;
+-(BOOL)mapChangedFromUserTapInteraction;
+
 @end

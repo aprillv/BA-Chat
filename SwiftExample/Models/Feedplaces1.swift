@@ -28,4 +28,5 @@ class Feedplaces1: ChatObject {
     var ps : NSNumber?
     var pw : NSNumber?
     var pe : NSNumber?
+    var google_id : NSString?
 }

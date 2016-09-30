@@ -71,7 +71,8 @@
     self.button.layer.borderWidth = 1.0;
     self.button.layer.cornerRadius = 2.0f;
     // UIColor(red: 238/255.0, green: 101/255.0, blue: 59/255.0, alpha: 1).CGColor
-    self.button.layer.borderColor = [[[UIColor alloc] initWithRed:238/255.0 green:101/255.0 blue:59/255.0 alpha:1] CGColor];
+//    self.button.layer.borderColor = [[[UIColor alloc] initWithRed:238/255.0 green:101/255.0 blue:59/255.0 alpha:1] CGColor];
+    self.button.layer.borderColor = [[[UIColor alloc] initWithRed:246/255.0 green:99/255.0 blue:115/255.0 alpha:1] CGColor];
     [self updateConstraintsIfNeeded];
 }
 

@@ -21,8 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FIRApp.configure()
+//        UIApplication.sharedApplication().statusBarStyle = .Default
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
+//         return true
         if let un = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String,
             let uid = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
             // get your storyboard
@@ -31,26 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            // instantiate your desired ViewController
-            //let rootController = storyboard.instantiateViewControllerWithIdentifier("FBViewController") as! FBViewController
-            
             let nav0 = storyboard.instantiateViewControllerWithIdentifier("nav1") as! UINavigationController
-          //  nav0.setViewControllers([rootController], animated: true)
-//            let nav = UINavigationController(rootViewController: rootController)
-            
-            // Because self.window is an optional you should check it's value first and assign your rootViewController
             if let window = self.window {
                 window.rootViewController = nav0
             }
-            
-//            let rootView: FBViewController = FBViewController()
-//            
-//            if let window = self.window{
-//                window.rootViewController = rootView
-//            }
+            nav0.navigationBar.translucent = false
         }
-        //UIApplication.sharedApplication().statu
-        // Override point for customization after application launch.
+        
+       
         return true
     }
     

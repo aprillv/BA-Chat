@@ -19,11 +19,10 @@ import MBProgressHUD
 
 class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDelegate
     , UINavigationControllerDelegate
-    ,ChatMapViewControllerDelegate, CLLocationManagerDelegate
-    {
+    ,ChatMapViewControllerDelegate, CLLocationManagerDelegate{
 
     
-    
+    var canPost = false
     var datachaturl = "https://hapapp-dc7be.firebaseio.com/chats"
     var storageUrl = "gs://hapapp-dc7be.appspot.com"
     var pictburl = "chatpic/iphone"
@@ -35,6 +34,10 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 //        FBUER
+        
+        if !canPost {
+            self.inputMessageBarView.removeFromSuperview()
+        }
         if let users = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String {
             self.userName = users
         }
@@ -182,7 +185,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
 //            }
 //        }
         
-        var aa = ZHCMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(msg.date)
+        let aa = ZHCMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(msg.date)
         
         
         return NSAttributedString(string: msg.senderDisplayName + " @ " + aa.string)
@@ -245,7 +248,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
         if let msg0 = self.messages.first {
             let lastCreadate = Int(msg0.date.timeIntervalSince1970)
 //        let lastCreadate = Int(NSDate().timeIntervalSince1970)
-            print(lastCreadate)
+//            print(lastCreadate)
             var i = 0
              let aaaa = messagesRef.queryOrderedByChild("creadate").queryEndingAtValue(lastCreadate)
 //            messagesRef.child("message").observeEventType(.Value, withBlock: {(snapshot) in
@@ -256,7 +259,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                 self.refreshControl1?.endRefreshing()
                 
                     let dic = snapshot.value
-                    print(dic)
+//                    print(dic)
                 
                     let text = dic?.valueForKey("message") as? String
                     let senderID = (dic?.valueForKey("telephoneNo") as? String) ?? (dic?.valueForKey("username") as? String)
@@ -346,7 +349,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         // text Message
                         //                let i = ZHCMediaItem()
                         //                i.appliesMediaViewMaskAsOutgoing = (sender == self.senderId())
-                        print(senderID, senderName)
+//                        print(senderID, senderName)
                         copyMessage = ZHCMessage(senderId: (senderID ?? ""), senderDisplayName: (senderName ?? ""), date: msgDate, text: text ?? "empty")
                         
                     }
@@ -359,7 +362,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                         self.finishReceivingMessage()
                     }
                 })
-            print("sssss")
+//            print("sssss")
             
         }
         
@@ -387,7 +390,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
         query.observeEventType(.ChildAdded, withBlock: {(snapshot) in
             
             let dic = snapshot.value
-                        print(dic)
+//                        print(dic)
             
             let text = dic?.valueForKey("message") as? String
             let senderID = (dic?.valueForKey("telephoneNo") as? String) ?? (dic?.valueForKey("username") as? String)
@@ -495,7 +498,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                 self.finishReceivingMessage()
             }
         })
-        print("fasdfasdf")
+//        print("fasdfasdf")
     }
     
     override func messagesMoreViewTitles(moreView: ZHCMessagesMoreView) -> [AnyObject] {
@@ -525,7 +528,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         let audioItem = ZHCAudioMediaItem()
         
         audioItem.appliesMediaViewMaskAsOutgoing = true
-        let copyMessage = ZHCMessage(senderId: self.senderId(), senderDisplayName: self.senderId(), date: date, media: audioItem)
+        let copyMessage = ZHCMessage(senderId: self.senderId(), senderDisplayName: self.senderDisplayName(), date: date, media: audioItem)
         audioItem.audioDataURL = voiceFilePath
         audioItem.audioDuration = senconds
         audioItem.audioData = NSData(contentsOfURL: url)
@@ -540,7 +543,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             riversRef.putFile(url, metadata: metadata).observeStatus(.Success) { (snapshot) in
                 // When the image has successfully uploaded, we get it's download URL
                 let text = snapshot.metadata?.downloadURL()?.absoluteString
-                            print(text)
+//                            print(text)
                 let ref = FIRDatabase.database()
                 let  messagesRef =  ref.referenceFromURL(self.datachaturl)
                 
@@ -682,13 +685,30 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         picker.dismissViewControllerAnimated(true, completion: nil)
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                        print(image.imageOrientation)
+//                        print(image.imageOrientation)
             
-            uploadAttachedPhoto(image)
+            uploadAttachedPhoto(fixOrientation(image))
         }else if let pickedVideo:NSURL = (info[UIImagePickerControllerMediaURL] as? NSURL) {
             uploadAttachedVideo(pickedVideo, time: 0)
         }
     }
+    
+    func fixOrientation(img:UIImage) -> UIImage {
+        
+        if (img.imageOrientation == UIImageOrientation.Up) {
+            return img;
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale);
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.drawInRect(rect)
+        
+        let normalizedImage : UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return normalizedImage ?? img;
+        
+    }
+    
     
     var sendingDate = [Int]()
     private func uploadAttachedPhoto(img:  UIImage){
@@ -707,7 +727,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         let photoItem = ZHCPhotoMediaItem(image: img)
 //        photoItem.imageData = img
         photoItem.appliesMediaViewMaskAsOutgoing = true
-        let copyMessage = ZHCMessage(senderId: self.senderId(), senderDisplayName: (self.senderId()), date: date, media: photoItem)
+        let copyMessage = ZHCMessage(senderId: self.senderId(), senderDisplayName: (self.senderDisplayName()), date: date, media: photoItem)
         self.sendingDate.append(a)
         self.messages.append(copyMessage)
         self.messageTableView?.reloadData()
@@ -766,7 +786,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         let metadata = FIRStorageMetadata()
         metadata.contentType = "video/quicktime"
         
-        var err: NSError? = nil
+//        var err: NSError? = nil
         let asset = AVURLAsset(URL: url, options: nil)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
         
@@ -781,7 +801,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             videoItem.fileFirstPageImage = uiImage
             videoItem.appliesMediaViewMaskAsOutgoing = true
             let copyMessage = ZHCMessage(senderId: self.senderId()
-                , senderDisplayName: self.senderId()
+                , senderDisplayName: self.senderDisplayName()
                 , date: date, media: videoItem)
             self.sendingDate.append(a)
             self.messages.append(copyMessage)
@@ -795,11 +815,11 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             
             riversRef0.putData(data, metadata: metadata0).observeStatus(.Success) { (snapshot0) in
             let text0 = snapshot0.metadata?.downloadURL()?.absoluteString
-                print(text0)
+//                print(text0)
                 riversRef.putFile(url, metadata: metadata).observeStatus(.Success) { (snapshot) in
                     // When the image has successfully uploaded, we get it's download URL
                     let text = snapshot.metadata?.downloadURL()?.absoluteString
-                                print(text)
+//                                print(text)
                     let ref = FIRDatabase.database()
                     let  messagesRef =  ref.referenceFromURL(self.datachaturl)
                     
@@ -848,7 +868,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         } else if (authorizationStatus == CLAuthorizationStatus.AuthorizedWhenInUse) {
             self.performSegueWithIdentifier("ToMap", sender: nil)
         }   else{
-            let winner = UIAlertController(title: "BA-Chat",message: "Please turn on location service with this app in order to use this function.",preferredStyle: UIAlertControllerStyle.Alert)
+            let winner = UIAlertController(title: "HapApp-Chat",message: "Please turn on location service with this app in order to use this function.",preferredStyle: UIAlertControllerStyle.Alert)
             let cancelAction = UIAlertAction(title: "OK",style: .Default,handler: {action in [
                 //                self.settingRoundNumber()
                 //                //            self.gameStart()
@@ -901,7 +921,7 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         //            let videotime = dic?.valueForKey("videotime") as? Double
         //            let video = dfdic?.valueForKey("video") as? String
         let a = NSDate().timeIntervalSince1970
-                let b : NSInteger = Int(a)
+//                let b : NSInteger = Int(a)
         
         let lat = Double(l.latitude)
         let lng = Double(l.longitude)

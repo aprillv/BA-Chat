@@ -22,54 +22,6 @@ class cl_coreData: NSObject {
         return appDelegate.managedObjectContext
     }()
     
-//    func savedScheduledDaysToDB(itemList : [ScheduledDayItem]){
-//        return
-//        let fetchRequest = NSFetchRequest(entityName: "ScheduledDay")
-//        let request = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-//        do {
-//            try persistentStoreCoordinator.executeRequest(request, withContext: managedObjectContext)
-//            for item : ScheduledDayItem in itemList {
-//                let entity =  NSEntityDescription.entityForName("ScheduledDay",
-//                    inManagedObjectContext:managedObjectContext)
-//                
-//                let scheduledDayItem = NSManagedObject(entity: entity!,
-//                    insertIntoManagedObjectContext: managedObjectContext)
-//                
-//                
-//                
-//                scheduledDayItem.setValue(item.ClockIn!, forKey: "clockIn")
-//                scheduledDayItem.setValue(item.ClockInCoordinate!.Latitude!, forKey: "clockInLatitude")
-//                scheduledDayItem.setValue(item.ClockInCoordinate!.Longitude!, forKey: "clockInLongitude")
-//                scheduledDayItem.setValue(item.ClockInDay!, forKey: "clockInDay")
-//                scheduledDayItem.setValue(item.ClockInDayFullName!, forKey: "ClockInDayFullName")
-//                scheduledDayItem.setValue(item.ClockInDayName!, forKey: "ClockInDayName")
-//                scheduledDayItem.setValue(item.ClockInDayOfWeek!, forKey: "ClockInDayOfWeek")
-//                scheduledDayItem.setValue(item.ClockOut!, forKey: "clockOut")
-//                scheduledDayItem.setValue(item.ClockOutCoordinate!.Latitude!, forKey: "clockOutLatitude")
-//                scheduledDayItem.setValue(item.ClockOutCoordinate!.Longitude!, forKey: "clockOutLatitude")
-//                scheduledDayItem.setValue(item.ClockOutDay!, forKey: "ClockOutDay")
-//                scheduledDayItem.setValue(item.ClockOutDayFullName!, forKey: "ClockOutDayFullName")
-//                scheduledDayItem.setValue(item.ClockOutDayName!, forKey: "ClockOutDayName")
-//                scheduledDayItem.setValue(item.ClockOutDayOfWeek!, forKey: "ClockOutDayOfWeek")
-//                scheduledDayItem.setValue(item.Hours!, forKey: "Hours")
-//                
-//                
-//                do {
-//                    try managedObjectContext.save()
-//                    
-//                } catch let error as NSError  {
-//                    print0000("Could not save \(error), \(error.userInfo)")
-//                }
-//            }
-//            
-//        } catch let error as NSError {
-//            print0000("\(error)")
-//            // TODO: handle the error
-//        }
-//        
-//    
-//
-//    }
     
     func savedFeedplace1ToDB(itemList : [Feedplaces1]){
         
@@ -93,6 +45,7 @@ class cl_coreData: NSObject {
                 scheduledDayItem.setValue(Double(item.ps!.doubleValue), forKey: "ps")
                 scheduledDayItem.setValue(Double(item.pw!.doubleValue), forKey: "pw")
                 scheduledDayItem.setValue(Double(item.pe!.doubleValue), forKey: "pe")
+                scheduledDayItem.setValue(item.google_id ?? "", forKey: "google_id")
                 do {
                     try managedObjectContext.save()
                     
@@ -174,6 +127,41 @@ class cl_coreData: NSObject {
         return a
         
     }
+    
+    func getIdFeedplace1ByGoogleID(googleid: String) -> Feedplaces1?{
+        let fetchRequest = NSFetchRequest(entityName: "FP1")
+//        print("google_id = \(googleid)")
+        let predicate = NSPredicate(format: "google_id = '\(googleid)'")
+        fetchRequest.predicate = predicate
+        
+        //3
+        var a : Feedplaces1?
+        do {
+            let results =
+                try managedObjectContext.executeFetchRequest(fetchRequest)
+            if let t = results as? [NSManagedObject] {
+                
+                if let item = t.first {
+                    let tmp : Feedplaces1 = Feedplaces1(dicInfo : nil)
+                    tmp.idfeedplaces1 = item.valueForKey("idfeedplaces1") as? NSInteger
+                    tmp.placename = item.valueForKey("placename") as? String
+                    tmp.chatcount = item.valueForKey("chatcount") as? NSInteger
+                    tmp.latitude = item.valueForKey("latitude") as? Double
+                    tmp.longitude = item.valueForKey("longitude") as? Double
+                    tmp.pn = item.valueForKey("pn") as? Double
+                    tmp.ps = item.valueForKey("ps") as? Double
+                    tmp.pw = item.valueForKey("pw") as? Double
+                    tmp.pe = item.valueForKey("pe") as? Double
+                    a = tmp
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return a
+        
+    }
+    
     
     func getIdFeedplace1lsBy(pn: Double, ps : Double, pw: Double, pe: Double) -> Bool{
         print(pn, ps, pw, pe)

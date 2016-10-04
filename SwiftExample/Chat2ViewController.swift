@@ -113,12 +113,12 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
         let msg = self.messages[indexPath.row]
         let a = UIColor(red: 0.9016, green: 0.9016, blue: 0.92, alpha:  1)
         return msg.senderId == self.senderId() ? bf.outgoingMessagesBubbleImageWithColor(a) : bf.incomingMessagesBubbleImageWithColor(a)
-        if msg.senderId == self.senderId() {
-            
-            return bf.outgoingMessagesBubbleImageWithColor(UIColor.zhc_messagesBubbleBlueColor())
-        }else{
-            return bf.incomingMessagesBubbleImageWithColor(UIColor.zhc_messagesBubbleGreenColor())
-        }
+//        if msg.senderId == self.senderId() {
+//            
+//            return bf.outgoingMessagesBubbleImageWithColor(UIColor.zhc_messagesBubbleBlueColor())
+//        }else{
+//            return bf.incomingMessagesBubbleImageWithColor(UIColor.zhc_messagesBubbleGreenColor())
+//        }
     }
     override func tableView(tableView: ZHCMessagesTableView, avatarImageDataForCellAtIndexPath indexPath: NSIndexPath) -> ZHCMessageAvatarImageDataSource? {
         

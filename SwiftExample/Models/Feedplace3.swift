@@ -29,4 +29,5 @@ class Feedplace3: ChatObject {
     var ps : NSNumber?
     var pw : NSNumber?
     var pe : NSNumber?
+    var polygon: String?
 }

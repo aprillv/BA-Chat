@@ -71,6 +71,8 @@
 		118E51DC1D8687BA004DDC14 /* MicrophoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E51DB1D8687BA004DDC14 /* MicrophoneViewController.swift */; };
 		1196A0771D8931E1001367BA /* Chat2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196A0761D8931E1001367BA /* Chat2ViewController.swift */; };
 		11984C601D9B66C4008E289D /* Verify0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11984C5F1D9B66C4008E289D /* Verify0ViewController.swift */; };
+		119864DD1DA34963004B9FFA /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119864DC1DA34963004B9FFA /* Util.swift */; };
+		119864DF1DA37032004B9FFA /* CLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119864DE1DA37032004B9FFA /* CLocationManager.swift */; };
 		11A10EAD1D9A0021008F3214 /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A10EAC1D9A0021008F3214 /* VerifyCodeViewController.swift */; };
 		11A10EAF1D9A0747008F3214 /* ChatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A10EAE1D9A0747008F3214 /* ChatConstants.swift */; };
 		11A10EB11D9A669E008F3214 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A10EB01D9A669E008F3214 /* VerificationViewController.swift */; };
@@ -220,6 +222,8 @@
 		1196A0761D8931E1001367BA /* Chat2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat2ViewController.swift; sourceTree = "<group>"; };
 		1196A0B71D89356C001367BA /* BAChat-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BAChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		11984C5F1D9B66C4008E289D /* Verify0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verify0ViewController.swift; sourceTree = "<group>"; };
+		119864DC1DA34963004B9FFA /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		119864DE1DA37032004B9FFA /* CLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLocationManager.swift; sourceTree = "<group>"; };
 		11A10EAC1D9A0021008F3214 /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
 		11A10EAE1D9A0747008F3214 /* ChatConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConstants.swift; sourceTree = "<group>"; };
 		11A10EB01D9A669E008F3214 /* VerificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
@@ -527,6 +531,7 @@
 		F82D09C11CDFBB4900DD74CF /* BAChat */ = {
 			isa = PBXGroup;
 			children = (
+				119864DE1DA37032004B9FFA /* CLocationManager.swift */,
 				115525A31D9234A800357AA9 /* Models */,
 				115525841D92286200357AA9 /* FBViewController.swift */,
 				11ED8D381D862F080080F6E7 /* SwiftExample.entitlements */,
@@ -544,6 +549,7 @@
 				11A10EB01D9A669E008F3214 /* VerificationViewController.swift */,
 				11984C5F1D9B66C4008E289D /* Verify0ViewController.swift */,
 				11B154E01D9CACFE00A91AA4 /* ProfileViewController.swift */,
+				119864DC1DA34963004B9FFA /* Util.swift */,
 			);
 			name = BAChat;
 			path = SwiftExample;
@@ -958,12 +964,14 @@
 				118DB9D31D89303900854F7B /* ZHCMessagesTableViewCellIncoming.m in Sources */,
 				111C10E81D8637E10073D4CE /* MapViewController.swift in Sources */,
 				11B154E11D9CACFE00A91AA4 /* ProfileViewController.swift in Sources */,
+				119864DF1DA37032004B9FFA /* CLocationManager.swift in Sources */,
 				118DB9D51D89303900854F7B /* ZHCMessagesTableViewCellOutcoming.m in Sources */,
 				115525A51D9234C300357AA9 /* Feedplaces1.swift in Sources */,
 				F82D09C31CDFBB4900DD74CF /* AppDelegate.swift in Sources */,
 				118DB9AC1D89303900854F7B /* NSArray+ZHCMessages.m in Sources */,
 				118DB9B71D89303900854F7B /* ZHCMessagesEmojiFactory.m in Sources */,
 				11B154E31D9CE89500A91AA4 /* SearchItemTableViewCell.swift in Sources */,
+				119864DD1DA34963004B9FFA /* Util.swift in Sources */,
 				118DB9BA1D89303900854F7B /* ZHCMessagesToolbarButtonFactory.m in Sources */,
 				118DB9B51D89303900854F7B /* ZHCMessagesAvatarImageFactory.m in Sources */,
 				11FA802E1D898AE000AA87E6 /* ZHCPhoto2MediaItem.m in Sources */,

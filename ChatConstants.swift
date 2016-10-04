@@ -28,4 +28,6 @@ struct ChatConstants{
     
     static let PostRadius = 100
     
+    static let LocationServericeChanged = "LocationServericeChanged"
+    
 }

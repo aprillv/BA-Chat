@@ -32,11 +32,15 @@
 - (void)applyOutgoingBubbleImageMaskToMediaView:(UIView *)mediaView
 {
     ZHCMessagesBubbleImage *bubbleImageData = [self.bubbleImageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+//    mediaView.layer.borderColor = [UIColor blackColor].CGColor;
+//    mediaView.layer.borderWidth = 1.0f;
     [self zhc_maskView:mediaView withImage:[bubbleImageData messageBubbleImage]];
 }
 
 - (void)applyIncomingBubbleImageMaskToMediaView:(UIView *)mediaView
 {
+//    mediaView.layer.borderColor = [UIColor blackColor].CGColor;
+//    mediaView.layer.borderWidth = 1.0f;
     ZHCMessagesBubbleImage *bubbleImageData = [self.bubbleImageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     [self zhc_maskView:mediaView withImage:[bubbleImageData messageBubbleImage]];
 }
@@ -64,8 +68,8 @@
     NSParameterAssert(image != nil);
     UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
     imageViewMask.frame = CGRectInset(view.frame,2.0f, 2.0f);
-    //imageViewMask.layer.borderColor = [UIColor redColor].CGColor;
-   // imageViewMask.layer.borderWidth = 2.0;
+//    imageViewMask.layer.borderColor = [UIColor redColor].CGColor;
+//    imageViewMask.layer.borderWidth = 2.0;
     view.layer.mask = imageViewMask.layer;
 }
 

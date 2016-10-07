@@ -21,6 +21,16 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
     , UINavigationControllerDelegate
     ,ChatMapViewControllerDelegate, CLLocationManagerDelegate{
 
+    override func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        if let ulocaiton = userLocation.location {
+            locaitonDidChange(ulocaiton)
+        }else{
+            self.inputMessageBarView.hidden = false
+        }
+        
+    }
+    var userlocaiton : CLLocation?
+    var polygon : String?
     
     var canPost = false
     var datachaturl = "https://hapapp-dc7be.firebaseio.com/chats"
@@ -36,13 +46,15 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
 //        FBUER
         
         if !canPost {
-            self.inputMessageBarView.removeFromSuperview()
+            self.inputMessageBarView.hidden = true
         }
         if let users = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String {
             self.userName = users
+//            print(users)
         }
         if let users = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
             self.userID = users
+//            print(users)
         }
         
         if NSUserDefaults.standardUserDefaults().integerForKey(ChatConstants.FBAuthed) ?? 0 == 1 {
@@ -245,6 +257,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
        
         let a = FIRDatabase.database()
         let  messagesRef =  a.referenceFromURL(datachaturl)
+        
         if let msg0 = self.messages.first {
             let lastCreadate = Int(msg0.date.timeIntervalSince1970)
 //        let lastCreadate = Int(NSDate().timeIntervalSince1970)
@@ -266,14 +279,14 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
                 let senderName = (dic?.valueForKey("username") as? String)
                     let imageUrl = dic?.valueForKey("pic") as? String
                     let creadate = dic?.valueForKey("creadate") as? NSInteger
-                    let fileurl = dic?.valueForKey("fileurl") as? String
+//                    let fileurl = dic?.valueForKey("fileurl") as? String
                     let gps = dic?.valueForKey("gps") as? Bool
                     let latitude = dic?.valueForKey("latitude") as? Double
                     let longitude = dic?.valueForKey("longitude") as? Double
                     let voice = dic?.valueForKey("voice") as? String
                     let voicemsecond = dic?.valueForKey("voicemsecond") as? Double
                     
-                    let videotime = dic?.valueForKey("videotime") as? Double
+//                    let videotime = dic?.valueForKey("videotime") as? Double
                     let video = dic?.valueForKey("video") as? String
                     //            if (videotime == 8581 && sender == "jack") {
                     //
@@ -384,7 +397,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
             hud.hideAnimated(true)
         })
         
-        
+//        print("aaaaaaa", datachaturl)
         let query = messagesRef.queryLimitedToLast(UInt(25))
 //        hud.hideAnimated(true)
         query.observeEventType(.ChildAdded, withBlock: {(snapshot) in
@@ -397,7 +410,7 @@ class Chat2ViewController: ZHCMessagesViewController,UIImagePickerControllerDele
             let senderName = (dic?.valueForKey("username") as? String)
             let imageUrl = dic?.valueForKey("pic") as? String
             let creadate = dic?.valueForKey("creadate") as? NSInteger
-            let fileurl = dic?.valueForKey("fileurl") as? String
+//            let fileurl = dic?.valueForKey("fileurl") as? String
             let gps = dic?.valueForKey("gps") as? Bool
             let latitude = dic?.valueForKey("latitude") as? Double
             let longitude = dic?.valueForKey("longitude") as? Double
@@ -597,6 +610,29 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
     }
     func backButtonTapped() {
         //        dismissViewControllerAnimated(true, completion: nil)
+         var views = self.navigationController?.viewControllers
+        var next = false
+        if views != nil {
+            for v in views! {
+                if let _ = v as? FBViewController {
+                    next = true
+                }
+            }
+            if !next {
+                let storyboard = UIStoryboard(name: ChatConstants.StoryboardName, bundle: nil)
+                if let fbview = storyboard.instantiateViewControllerWithIdentifier(ChatConstants.MapViewStoryboardIdentifier) as? FBViewController{
+                                    fbview.userlocation = self.userlocaiton
+                    
+                    //                views?.append(fbview)
+                    views?.insert(fbview, atIndex: views!.count-1)
+                    self.navigationController?.viewControllers = views!
+                    
+                }
+            }
+        }
+        
+        
+        
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -607,22 +643,41 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
         self.imagePicker.delegate = self
 //        self.imagePicker.allowsEditing = true
         self.imagePicker.sourceType = .PhotoLibrary
-        self.imagePicker.mediaTypes = [(kUTTypeMovie as String)
-            , (kUTTypeImage as String)
-            , (kUTTypeJPEG as String)
-            , (kUTTypeJPEG2000 as String)
-            , (kUTTypePNG as String)
-            , (kUTTypeGIF as String)
-            , (kUTTypeQuickTimeImage as String)
-            , (kUTTypeBMP as String)
-            , (kUTTypeRawImage as String)
-            , (kUTTypeLivePhoto as String)
-            , (kUTTypeVideo as String)
-            , (kUTTypeMPEG2Video as String)
-            , (kUTTypeMPEG4 as String)
-            , (kUTTypeMPEG4Audio as String)
-            , (kUTTypeAppleProtectedMPEG4Video as String)
-            , (kUTTypeAVIMovie as String)]
+        if #available(iOS 9.1, *) {
+            self.imagePicker.mediaTypes = [(kUTTypeMovie as String)
+                , (kUTTypeImage as String)
+                , (kUTTypeJPEG as String)
+                , (kUTTypeJPEG2000 as String)
+                , (kUTTypePNG as String)
+                , (kUTTypeGIF as String)
+                , (kUTTypeQuickTimeImage as String)
+                , (kUTTypeBMP as String)
+                , (kUTTypeRawImage as String)
+                , (kUTTypeLivePhoto as String)
+                , (kUTTypeVideo as String)
+                , (kUTTypeMPEG2Video as String)
+                , (kUTTypeMPEG4 as String)
+                , (kUTTypeMPEG4Audio as String)
+                , (kUTTypeAppleProtectedMPEG4Video as String)
+                , (kUTTypeAVIMovie as String)]
+        } else {
+            self.imagePicker.mediaTypes = [(kUTTypeMovie as String)
+                , (kUTTypeImage as String)
+                , (kUTTypeJPEG as String)
+                , (kUTTypeJPEG2000 as String)
+                , (kUTTypePNG as String)
+                , (kUTTypeGIF as String)
+                , (kUTTypeQuickTimeImage as String)
+                , (kUTTypeBMP as String)
+                , (kUTTypeRawImage as String)
+                , (kUTTypeVideo as String)
+                , (kUTTypeMPEG2Video as String)
+                , (kUTTypeMPEG4 as String)
+                , (kUTTypeMPEG4Audio as String)
+                , (kUTTypeAppleProtectedMPEG4Video as String)
+                , (kUTTypeAVIMovie as String)]
+            // Fallback on earlier versions
+        }
         //        self.imagePicker.cameraCaptureMode = .Photo
         self.presentViewController(self.imagePicker, animated: true, completion: nil)
     }
@@ -739,6 +794,10 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             // When the image has successfully uploaded, we get it's download URL
             let text = snapshot.metadata?.downloadURL()?.absoluteString
 //            print(text)
+            if let tx = NSURL(string: (text ?? "")){
+                SDWebImageManager.sharedManager().saveImageToCache(img, forURL: tx)
+            }
+            
             let ref = FIRDatabase.database()
             let  messagesRef =  ref.referenceFromURL(self.datachaturl)
             
@@ -815,6 +874,9 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
             
             riversRef0.putData(data, metadata: metadata0).observeStatus(.Success) { (snapshot0) in
             let text0 = snapshot0.metadata?.downloadURL()?.absoluteString
+                if let l = NSURL(string:text0 ?? ""){
+                    SDWebImageManager.sharedManager().saveImageToCache(uiImage, forURL: l)
+                }
 //                print(text0)
                 riversRef.putFile(url, metadata: metadata).observeStatus(.Success) { (snapshot) in
                     // When the image has successfully uploaded, we get it's download URL
@@ -977,19 +1039,59 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
                     
                     self.performSegueWithIdentifier("ToMap2", sender: photo)
                 }else{
-//                    [ImageBrowserViewController show:self type:PhotoBroswerVCTypeModal index:button.tag imagesBlock:^NSArray *{
-//                        return weakSelf.imageArray;
-//                        }];
                     
-                    ImageBrowserViewController.show(self, type: PhotoBroswerVCType.Zoom, index: 0, imagesBlock: { () -> [AnyObject]! in
-                        return [photo.imageURL?.absoluteString ?? ""]
+                    var index1 = 0
+                    var nowIndex = 0
+                    var photosURL = [AnyObject]()
+                    for item in messages {
+                        if let pitem = item.media as? ZHCPhoto2MediaItem {
+                            if !(pitem.imageURL?.absoluteString?.hasPrefix("https://maps.google.com/maps/api/staticmap?markers=color:red") ?? false) {
+                                photosURL.append(pitem.imageURL?.absoluteString ?? "")
+                                if pitem.imageURL == photo.imageURL {
+                                    nowIndex = index1
+                                }
+                                index1 += 1
+                            }                            
+                            
+                        }else if let pitem0 = item.media as? ZHCPhotoMediaItem {
+                            photosURL.append(pitem0.image!)
+                            index1 += 1
+                        }
+                    }
+                    
+                    ImageBrowserViewController.show(self, type: PhotoBroswerVCType.Zoom, index: UInt(nowIndex), imagesBlock: { () -> [AnyObject]! in
+                        return photosURL
                     })
+                    
+                    
+//                    ImageBrowserViewController.show(self, type: PhotoBroswerVCType.Zoom, index: 0, imagesBlock: { () -> [AnyObject]! in
+//                        return [photo.imageURL?.absoluteString ?? ""]
+//                    })
+                    
                 }
             }else if let photo = msg.media as? ZHCPhotoMediaItem {
                 
+                var photos = [AnyObject]()
+                var index1 = 0
+                var nowIndex = 0
+                for item in messages {
+                    if let pitem = item.media as? ZHCPhotoMediaItem {
+                        
+                        photos.append(pitem.image!)
+                        if pitem == photo {
+                            nowIndex = index1
+                        }
+                        index1 += 1
+                    }else if let pitem2 = item.media as? ZHCPhoto2MediaItem {
+                        if !(pitem2.imageURL?.absoluteString?.hasPrefix("https://maps.google.com/maps/api/staticmap?markers=color:red") ?? false) {
+                            photos.append(pitem2.imageURL?.absoluteString ?? "")
+                            index1 += 1
+                        }
+                    }
+                }
                     
-                    ImageBrowserViewController.show(self, type: PhotoBroswerVCType.Zoom, index: 0, imagesBlock: { () -> [AnyObject]! in
-                        return [photo.image!]
+                    ImageBrowserViewController.show(self, type: PhotoBroswerVCType.Zoom, index: UInt(nowIndex), imagesBlock: { () -> [AnyObject]! in
+                        return photos
                     })
                 
             }else if let video = msg.media as? ZHCVideoMediaItem {
@@ -1030,6 +1132,59 @@ let videosnapshot = dic?.valueForKey("videosnapshot") as? String
     }
     
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        if self.mapView != nil {
+            self.mapView.showsUserLocation = true
+//        }
+        
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Chat2ViewController.locaitonDidChange(_:)), name:ChatConstants.LocationDidChangeTo, object: nil)
+    }
+//
+//    
+//    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        if self.mapView != nil {
+            self.mapView.showsUserLocation = false
+//        }
+        
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: ChatConstants.LocationDidChangeTo, object: nil)
+    }
+    
+//    func locaitonDidChange(sender : NSNotification) {
+//        
+//        if let nowlocation = sender.object as? CLLocation, ploy = self.polygon {
+////            print("april test ", nowlocation)
+//            
+//            let tll = Util()
+//            if !tll.isInPolygon(nowlocation.coordinate, polygon: ploy) {
+//                self.inputMessageBarView.hidden = true
+//            }else{
+//                self.inputMessageBarView.hidden = false
+//            }
+//        }
+//        
+//        
+//    }
+    
+    func locaitonDidChange(userlocaitonnow : CLLocation) {
+        
+        if let ploy = self.polygon {
+            //            print("april test ", nowlocation)
+            
+            let tll = Util()
+            if !tll.isInPolygon(userlocaitonnow.coordinate, polygon: ploy) {
+                self.inputMessageBarView.hidden = true
+            }else{
+                self.inputMessageBarView.hidden = false
+            }
+        }
+        
+        
+    }
     
 //    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        

@@ -35,7 +35,8 @@ class Map2ViewController: UIViewController, MKMapViewDelegate{
         if annotationView == nil {
             annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "April")
         }
-        annotationView?.pinTintColor = UIColor.redColor()
+//        annotationView?.pinTintColor = UIColor.redColor()
+        annotationView?.tintColor = UIColor.redColor()
         annotationView?.animatesDrop = true
         return annotationView
     }

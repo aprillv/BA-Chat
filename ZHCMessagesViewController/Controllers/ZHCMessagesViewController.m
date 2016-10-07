@@ -140,9 +140,17 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     [[[self class] nib] instantiateWithOwner:self options:nil];
     [self zhc_configureMessagesViewController];
     [self zhc_registerForNotifications:YES];
+    
+    self.mapView = [[MKMapView alloc]initWithFrame:CGRectMake(-1, -1, 1, 1)];
+    
+    self.mapView.showsUserLocation = YES;
+    self.mapView.delegate = self;
+    [self.view addSubview:self.mapView];
     [self initialSubViews];
     // Do any additional setup after loading the view from its nib.
 }

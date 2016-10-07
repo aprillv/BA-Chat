@@ -38,7 +38,7 @@
             self.imageView.frame=[self caculateOriginImageSizeWith:image];
             //NSLog(@"图片加载完成");
             if (!isCached) {
-                [HUD hide:YES];
+                [HUD hideAnimated:YES];
             }
         }];
     }

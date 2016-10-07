@@ -133,7 +133,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSou
         if annotationView == nil {
             annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "April")
         }
-        annotationView?.pinTintColor = UIColor.redColor()
+        if #available(iOS 9.0, *) {
+            annotationView?.pinTintColor = UIColor.redColor()
+        } else {
+            // Fallback on earlier versions
+        }
         annotationView?.animatesDrop = true
         return annotationView
     }

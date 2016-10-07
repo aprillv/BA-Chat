@@ -17,7 +17,7 @@
     self = [super init];
     if (self) {
         _messageBubbleImage = image;
-        //_messageBubbleImage =  [[UIImage imageNamed:@"clockin.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:26];
+        
         _messageBubbleHighlightedImage = highlightedImage;
         
     }

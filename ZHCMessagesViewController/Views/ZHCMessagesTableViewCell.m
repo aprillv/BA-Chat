@@ -382,7 +382,26 @@ static NSMutableSet *zhcMessagesTableViewCellActions = nil;
     [self.textView removeFromSuperview];
     
     [mediaView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    mediaView.backgroundColor = [UIColor blackColor];
+//    UIView * back = [[UIView alloc] initWithFrame:mediaView.frame];
+//    back.backgroundColor =  [UIColor grayColor];
+    
+//     [self.messageBubbleContainerView addSubview:back];
     [self.messageBubbleContainerView addSubview:mediaView];
+   
+//    mediaView.tag = 100;
+//    self.messageBubbleContainerView.layer.borderWidth = 1.0f;
+//    self.messageBubbleContainerView.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    
+//    [self.messageBubbleContainerView zhc_pinSubview:back toEdge:NSLayoutAttributeTop withConstant:1.0f];
+//    [back zhc_pinSelfToEdge:NSLayoutAttributeHeight withConstant:CGRectGetHeight(back.frame)];
+//    [back zhc_pinSelfToEdge:NSLayoutAttributeWidth withConstant:CGRectGetWidth(back.frame)];
+//    if (isOutgoingMessage) {
+//        [self.messageBubbleContainerView zhc_pinSubview:back toEdge:NSLayoutAttributeTrailing withConstant:-2.0f];
+//    }else{
+//        [self.messageBubbleContainerView zhc_pinSubview:back toEdge:NSLayoutAttributeLeading withConstant:2.0f];
+//    }
     
     [self.messageBubbleContainerView zhc_pinSubview:mediaView toEdge:NSLayoutAttributeTop withConstant:1.0f];
     [mediaView zhc_pinSelfToEdge:NSLayoutAttributeHeight withConstant:CGRectGetHeight(mediaView.frame)];
@@ -400,8 +419,10 @@ static NSMutableSet *zhcMessagesTableViewCellActions = nil;
     ZHCWeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
-            if (weakSelf.messageBubbleContainerView.subviews[i] != _mediaView) {
-                [weakSelf.messageBubbleContainerView.subviews[i] removeFromSuperview];
+            UIView * v = weakSelf.messageBubbleContainerView.subviews[i];
+            if ( v != _mediaView ) {
+                
+                [v removeFromSuperview];
             }
         }
     });

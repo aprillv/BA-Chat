@@ -67,11 +67,13 @@
     
     self.scrollView.contentOffset = CGPointMake(WIDTH*self.index, 0);//此句代码需放在[_subViewArray addObject:[NSNull class]]之后，因为其主动调用scrollView的代理方法，否则会出现数组越界
     
-    if (self.imagesArray.count==1) {
-        _pageControl.hidden=YES;
-    }else{
-        self.pageControl.currentPage=self.index;
-    }
+//    if (self.imagesArray.count==1) {
+//        _pageControl.hidden=YES;
+//    }else{
+//        self.pageControl.currentPage=self.index;
+//    }
+    
+    _pageControl.hidden=YES;
     
     [self loadPhote:self.index];//显示当前索引的图片
     
@@ -90,18 +92,19 @@
         return;
     }
     id currentPhotoView = [_subViewArray objectAtIndex:index];
+    id currentPhoto = [self.imagesArray objectAtIndex:index];
     if (![currentPhotoView isKindOfClass:[PhotoView class]]) {
         //url数组或图片数组
         CGRect frame = CGRectMake(index*_scrollView.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height);
         
-        if ([[self.imagesArray firstObject] isKindOfClass:[UIImage class]]) {
-            PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoImage:[self.imagesArray objectAtIndex:index]];
+        if ([currentPhoto isKindOfClass:[UIImage class]]) {
+            PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoImage:currentPhoto];
             photoV.delegate = self;
             [self.scrollView insertSubview:photoV atIndex:0];
             [_subViewArray replaceObjectAtIndex:index withObject:photoV];
             self.photoView=photoV;
-        }else if ([[self.imagesArray firstObject] isKindOfClass:[NSString class]]){
-            PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoUrl:[self.imagesArray objectAtIndex:index]];
+        }else if ([currentPhoto isKindOfClass:[NSString class]]){
+            PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoUrl:currentPhoto];
             photoV.delegate = self;
             [self.scrollView insertSubview:photoV atIndex:0];
             [_subViewArray replaceObjectAtIndex:index withObject:photoV];
@@ -228,7 +231,7 @@
     if (page<0||page>=self.imagesArray.count) {
         return;
     }
-    self.pageControl.currentPage = page;
+//    self.pageControl.currentPage = page;
     
     for (UIView *view in scrollView.subviews) {
         if ([view isKindOfClass:[PhotoView class]]) {
@@ -274,9 +277,14 @@
         bottomView.backgroundColor=[UIColor clearColor];
         _pageControl = [[UIPageControl alloc] initWithFrame:bottomView.bounds];
         _pageControl.currentPage = self.index;
+//        NSLog(@"-----%d", self.index);
         _pageControl.numberOfPages = self.imagesArray.count;
-        _pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:153 green:153 blue:153 alpha:1];
-        _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:235 green:235 blue:235 alpha:0.6];
+//        _pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:153 green:153 blue:153 alpha:1];
+//        _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:235 green:235 blue:235 alpha:0.6];
+        
+        _pageControl.currentPageIndicatorTintColor = [UIColor grayColor];
+        _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+        
         [bottomView addSubview:_pageControl];
         [self.view addSubview:bottomView];
     }

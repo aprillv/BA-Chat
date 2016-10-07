@@ -106,6 +106,7 @@
 
 - (UIImage *)jsq_stretchableImageFromImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets
 {
+//    return image;
     return [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
 }
 

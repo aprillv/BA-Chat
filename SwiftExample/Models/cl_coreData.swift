@@ -26,9 +26,27 @@ class cl_coreData: NSObject {
     func savedFeedplace1ToDB(itemList : [Feedplaces1]){
         
         let fetchRequest = NSFetchRequest(entityName: "FP1")
-        let request = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//        let req = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        var request : NSPersistentStoreRequest?
+        if #available(iOS 9.0, *) {
+            request = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        } else {
+            // Fallback on earlier versions
+            fetchRequest.includesPropertyValues = false
+            
+        }
         do {
-            try persistentStoreCoordinator.executeRequest(request, withContext: managedObjectContext)
+            if let req = request {
+                try persistentStoreCoordinator.executeRequest(req, withContext: managedObjectContext)
+            }else{
+                let items = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+                
+                for item in items {
+                    managedObjectContext.deleteObject(item)
+                }
+
+            }
+            
             for item : Feedplaces1 in itemList {
                 let entity =  NSEntityDescription.entityForName("FP1",
                     inManagedObjectContext:managedObjectContext)

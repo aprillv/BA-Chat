@@ -13,7 +13,7 @@
 
 - (UIImage *)zhc_imageMaskedWithColor:(UIColor *)maskColor
 {
-   // UIImage(named: "clockin.png")?.stretchableImageWithLeftCapWidth(20, topCapHeight: 26)
+   
    
     NSParameterAssert(maskColor != nil);
     

@@ -74,8 +74,6 @@
 
 -(ZHCMessagesBubbleImage *)zhc_messagesBubbleImageWithColor:(UIColor *)color flippedForIncoming:(BOOL)flippedForIncoming
 {
-    //UIImage(named: "clockin.png")?.stretchableImageWithLeftCapWidth(20, topCapHeight: 26)
-    
     UIImage *nolmalBubble = [self.bubbleImage zhc_imageMaskedWithColor:color];
     UIImage *hightlighttBubble = [self.bubbleImage zhc_imageMaskedWithColor:[color zhc_colorByDarkeningColorWithValue:0.12]];
     
@@ -89,10 +87,7 @@
     nolmalBubble = [self zhc_stretchableImageFromImage:nolmalBubble withCapInsets:self.capInsets];
     hightlighttBubble = [self zhc_stretchableImageFromImage:hightlighttBubble withCapInsets:self.capInsets];
     
-    //NSLog(@"aaaaa %f - %f - %f", self.bubbleImage.size.height, self.capInsets.top, self.capInsets.bottom);
-    //UIImage * nolmalBubble = [[UIImage imageNamed:flippedForIncoming ? @"clockin.png" : @"clockout.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:26];
     
-   // UIImage * hightlighttBubble = [nolmalBubble zhc_imageMaskedWithColor:[color zhc_colorByDarkeningColorWithValue:0.12]];
     return [[ZHCMessagesBubbleImage alloc]initWithMessageBubbleImage:nolmalBubble highlightedImage:hightlighttBubble];
 }
 
@@ -110,8 +105,25 @@
    // capInsets.right += 10;
    // capInsets.top += 10;
     //capInsets.bottom += 10;
+//    return image;
+    image =  [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
+//    image = [self imageWithBorderFromImage: image];
+    return image;
+}
+
+- (UIImage*)imageWithBorderFromImage:(UIImage*)source;
+{
+    CGSize size = [source size];
+    UIGraphicsBeginImageContext(size);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    [source drawInRect:rect blendMode:kCGBlendModeNormal alpha:1.0];
     
-    return [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetRGBStrokeColor(context, 1.0, 0.5, 1.0, 1.0);
+    CGContextStrokeRect(context, rect);
+    UIImage *testImg =  UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return testImg;
 }
 
 

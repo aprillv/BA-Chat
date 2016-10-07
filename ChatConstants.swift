@@ -16,6 +16,11 @@ struct ChatConstants{
     
     static let GetFirebaseTokenSeviceURL = "getfirebasetoken.json"
     
+    static let GetFeedplace3ListURL = "dbgetFeedPlaces.json" // idfeedplaces1
+    
+    static let StoryboardName = "Main"
+    static let MapViewStoryboardIdentifier = "FBViewController"
+    
     
     static let FBUserId = "FBUER_ID"
     static let FBUserName = "FBUsername"
@@ -29,5 +34,6 @@ struct ChatConstants{
     static let PostRadius = 100
     
     static let LocationServericeChanged = "LocationServericeChanged"
+//    static let LocationDidChangeTo = "LocationDidChangeTo"
     
 }

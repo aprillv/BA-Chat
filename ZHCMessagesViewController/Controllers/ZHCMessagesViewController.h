@@ -16,12 +16,13 @@
 #import "ZHCMessagesInputToolbar.h"
 #import "ZHCMessagesMoreView.h"
 #import "ZHCMessagesEmojiView.h"
+#import "MKMapView+ZoomLevel.h"
 
 
 
 
 NS_ASSUME_NONNULL_BEGIN
-@interface ZHCMessagesViewController : UIViewController<ZHCMessagesTableViewDataSource,ZHCMessagesTableViewDelegate,ZHCMessagesMoreViewDelegate,ZHCMessagesMoreViewDataSource,ZHCEmojiViewDelegate,ZHCMessagesInputToolbarDelegate>
+@interface ZHCMessagesViewController : UIViewController<ZHCMessagesTableViewDataSource,ZHCMessagesTableViewDelegate,ZHCMessagesMoreViewDelegate,ZHCMessagesMoreViewDataSource,ZHCEmojiViewDelegate,ZHCMessagesInputToolbarDelegate, MKMapViewDelegate>
 
 
 /**
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Returns the More view object managed by this view controller.
  */
 @property (strong, nonatomic) ZHCMessagesMoreView *messageMoreView;
+@property (strong, nonatomic) MKMapView *mapView;
 
 /**
  *  Returns the Emoji View managed by this view controller.

@@ -13,141 +13,52 @@ import Alamofire
 import Firebase
 import FirebaseAuth
 
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var locationManager:CLLocationManager?
     
     var window: UIWindow?
     
+   
     
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         getAllFp1()
-        
-        self.locationManager = CLLocationManager()
-        self.locationManager?.delegate = self
-        self.locationManager?.requestAlwaysAuthorization()
-        self.locationManager?.activityType = .OtherNavigation
-        self.locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager?.startUpdatingLocation()
-         FIRApp.configure()
+        FIRApp.configure()
         
         return true
     }
     
-    var currentLocation : CLLocation?
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let locaiton = locations.first{
-            currentLocation = locaiton
-            self.locationManager?.stopUpdatingLocation()
-//        print(NSDate(), locaiton, "april test")
-        }
-        
-    }
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        application.statusBarStyle = .LightContent
+//        application.statusBarStyle = .LightContent
 //        return true
-        if let un = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String{
-        
-        }else{
-            return true
-        }
         
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
-        
-        var candonext = false
-        var idfp1: Int?
-        var idfp3: Int?
-        var fp3nm: String?
-        if let loction = currentLocation {
-            let cl = cl_coreData()
+        if let un = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String,
+            let uid = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
+            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: ChatConstants.FBAuthed)
+            self.getTokenFromServer(un, phoneNo: uid)
             
-            if let fp1 = cl.getIdFeedplace1By(loction.coordinate.latitude, lng: loction.coordinate.longitude){
-                let param = ["idfeedplaces1": "\(fp1.idfeedplaces1 ?? 0)"]
-                idfp1 = Int(fp1.idfeedplaces1 ?? 0)
-                Alamofire.request(.GET, "http://sdk.itshapapp.com/dbgetFeedPlaces.json", parameters:param)
-                    .responseJSON { response in
-                        
-                        let JSON = response.result.value
-                        if let fpls = JSON?.valueForKey("Feedplaces3List") as? [[String: AnyObject]] {
-                            let tll = Util()
-                            for fp in fpls {
-                                if let polygon = fp["polygon"] as? String {
-//                                    print("========")
-//                                    print(fp["latitude"], fp["longitude"], polygon)
-                                    let rtn = tll.isInPolygon(loction.coordinate, polygon: polygon)
-                                    if rtn {
-                                        idfp3 = Int(fp["idfeedplaces3"] as? NSNumber ?? 0)
-                                        fp3nm = fp["placename"] as? String ?? "0"
-                                        candonext = true
-                                        break
-                                        
-                                    }
-                                }
-                            }
-                            candonext = true
-                        }else{
-                            candonext = true
-                        }
-                }
-            }else{
-                candonext = true
-            }
-        }else{
-            candonext = true
-        }
-        
-        while !candonext {
-            NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.5))
-        }
-        if candonext {
-//            print(idfp1, idfp3, fp3nm)
-            if let un = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserName) as? String,
-                let uid = NSUserDefaults.standardUserDefaults().valueForKey(ChatConstants.FBUserId) as? String {
-                NSUserDefaults.standardUserDefaults().setInteger(0, forKey: ChatConstants.FBAuthed)
-                self.getTokenFromServer(un, phoneNo: uid)
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                let nav0 = storyboard.instantiateViewControllerWithIdentifier("nav1") as! UINavigationController
-                if let window = self.window {
-                    window.rootViewController = nav0
-                    if let fb = nav0.viewControllers.first as? FBViewController {
-                        fb.userlocation = currentLocation
-                    }
-//                    print(nav0.viewControllers)
-                }
-                
-                
-                
-                
-                if let idfp3s = idfp3,
-                    let a = storyboard.instantiateViewControllerWithIdentifier("Chat2ViewController") as? Chat2ViewController {
-                    a.idfp3 = idfp3s
-                    a.idfeedplaces1 = idfp1 ?? 0
-                    a.canPost = true
-                    a.title = fp3nm ?? "Chat"
-                    var views = nav0.viewControllers
-                    views.append(a)
-                    nav0.viewControllers = views
-                }
-                
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let nav0 = storyboard.instantiateViewControllerWithIdentifier("nav1") as! UINavigationController
+            if let window = self.window {
+                window.rootViewController = nav0
                 nav0.navigationBar.translucent = false
             }
+        }else{
+            application.statusBarStyle = .LightContent
+            
         }
-        
-        
-       
         return true
     }
     
     
     private func getTokenFromServer(username: String, phoneNo: String){
-        let para=["phoneNumber": phoneNo
-            ,"username": username];
+        let para=["phoneNumber": phoneNo, "username": username];
         //let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
        // hud.label.text = "Login..."
         Alamofire.request(.GET, ChatConstants.ServiceURL + ChatConstants.GetFirebaseTokenSeviceURL,parameters:para)
@@ -279,15 +190,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        //        for win in UIApplication.sharedApplication().windows {
-        //            let a = win.subviews
-        //            if a.count > 0 {
-        //                for vi in a {
-        //                    if vi .isKindOfClass(UIAlertController)
-        //                }
-        //            }
-        //        }
-//        CLocationManager.sharedInstance.updateLocation()
         let c = UIApplication.sharedApplication().keyWindow?.rootViewController
         if let a = c?.presentedViewController as? UIAlertController {
             if a.message == "Please turn on location service with this app in order to use this function." {
@@ -298,9 +200,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
             
         }
-        
-        
-        //        endBackgroundUpdateTask()
     }
     
     
